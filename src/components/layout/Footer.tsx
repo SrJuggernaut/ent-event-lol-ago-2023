@@ -13,7 +13,7 @@ const Footer: FC = () => {
       className={css({
         backgroundColor: 'surface',
         paddingBlock: 'large',
-        marginTop: 'medium'
+        marginTop: 'large'
       })}
     >
       <Container

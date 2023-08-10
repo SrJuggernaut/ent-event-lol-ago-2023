@@ -1,5 +1,5 @@
 import IconButton from '@/components/ui/IconButton'
-import { faBars, faHome, faTimes, faTree } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faBook, faHome, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { css } from '@styled/css'
 import gsap from 'gsap'
@@ -8,8 +8,8 @@ import { usePathname } from 'next/navigation'
 import { useCallback, useEffect, useRef, useState, type FC } from 'react'
 
 const menuItems = [
-  { label: 'EntGamers.pro', href: 'https://entgamers.com', icon: faTree },
-  { label: 'Inicio', href: '/', icon: faHome }
+  { label: 'Inicio', href: '/', icon: faHome },
+  { label: 'Reglamento', href: '/reglamento', icon: faBook }
 ]
 
 const Menu: FC = () => {

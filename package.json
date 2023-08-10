@@ -22,11 +22,13 @@
     "entgamers-panda-preset": "^0.0.3",
     "eslint": "^8.0.1",
     "eslint-config-next": "13.4.12",
+    "formik": "^2.4.3",
     "gsap": "^3.12.2",
     "next": "13.4.12",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "typescript": "*"
+    "typescript": "*",
+    "yup": "^1.2.0"
   },
   "devDependencies": {
     "@pandacss/dev": "^0.10.0",

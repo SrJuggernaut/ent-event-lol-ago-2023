@@ -115,6 +115,7 @@ const Menu: FC = () => {
                 listStyle: 'none',
                 paddingInline: '0px'
               })}
+              onClick={() => { setOpenMenu(false) }}
             >
               {menuItems.map((item, index) => {
                 const AnchorClassName = css({

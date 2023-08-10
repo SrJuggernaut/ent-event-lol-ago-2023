@@ -3,6 +3,7 @@ import EntGamersLogo from '@/components/assets/EntGamersLogo'
 import Menu from '@/components/layout/Menu'
 import { css } from '@styled/css'
 import { Container } from '@styled/jsx/container'
+import NextLink from 'next/link'
 import { useCallback, useEffect, useState, type FC } from 'react'
 
 const Header: FC = () => {
@@ -55,7 +56,9 @@ const Header: FC = () => {
           }
         >
           <div>
-            <EntGamersLogo height={40} />
+            <NextLink href="/">
+              <EntGamersLogo height={40} />
+            </NextLink>
           </div>
           <div>
             <Menu />

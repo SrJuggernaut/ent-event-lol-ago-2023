@@ -1,4 +1,6 @@
 import Typography from '@/components/ui/Typography'
+import { faTrophy } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { css } from '@styled/css'
 import { type Metadata } from 'next'
 import { type FC } from 'react'
@@ -37,6 +39,18 @@ const page: FC = () => {
         <li><strong>Cumplimiento de las Reglas del Juego:</strong> Además de las reglas específicas del torneo, los participantes deben cumplir con las reglas estándar del juego de League of Legends establecidas por Riot Games.</li>
         <li><strong>Modificaciones de las Reglas:</strong> El equipo de staff se reserva el derecho de realizar modificaciones o ajustes en las reglas en caso de situaciones imprevistas o para garantizar el buen funcionamiento del torneo.</li>
       </ol>
+      <Typography variant="h2">Premios</Typography>
+      <ul className='fa-ul'>
+        <li><FontAwesomeIcon icon={faTrophy} listItem fixedWidth /><strong>1er Lugar:</strong> Skin de 1850 RP o 10 cofres Hextech + llaves<Typography color="info" component="span">*</Typography></li>
+        <li><FontAwesomeIcon icon={faTrophy} listItem fixedWidth /><strong>2do Lugar:</strong> Skin de 1350 RP o 7 cofres hextech + llaves<Typography color="info" component="span">*</Typography></li>
+        <li><FontAwesomeIcon icon={faTrophy} listItem fixedWidth /><strong>3er Lugar:</strong> Skin de 975 RP o 5 cofres hextech + llaves<Typography color="info" component="span">*</Typography></li>
+        <li><FontAwesomeIcon icon={faTrophy} listItem fixedWidth /><strong>4o Lugar:</strong> Caja de skin sorpresa</li>
+        <li><FontAwesomeIcon icon={faTrophy} listItem fixedWidth /><strong>4o Lugar:</strong> Caja de skin sorpresa</li>
+      </ul>
+      <br />
+      <Typography variant="caption" color="info" className={css({ marginTop: 'medium' })}>
+        * A elección del ganador
+      </Typography>
     </>
   )
 }

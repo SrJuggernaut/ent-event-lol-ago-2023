@@ -20,7 +20,7 @@ module.exports = {
       ref: 'origin/preview',
       repo: 'https://github.com/SrJuggernaut/ent-event-lol-ago-2023.git',
       path: process.env.DEPLOY_PATH || '', 
-      'pre-deploy': 'yarn install && yarn run build',
+      'pre-deploy': 'yarn install',
       'post-deploy': 'pm2 startOrRestart ecosystem.config.js',
       env: {
         PORT: process.env.PORT || 3700,

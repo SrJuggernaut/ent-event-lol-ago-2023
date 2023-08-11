@@ -11,6 +11,7 @@ import { css, cx } from '@styled/css'
 import { container } from '@styled/patterns'
 import { type Metadata } from 'next'
 import { type FC, type ReactNode } from 'react'
+import Providers from './Providers'
 
 config.autoAddCss = false
 
@@ -28,13 +29,15 @@ const RootLayout: FC<LayoutProps> = ({ children }) => {
   return (
     <html lang="es">
       <body>
-        <Header />
-        <main
-          className={cx(container(), css({ minHeight: 'calc(100vh - (72px *2))' }))}
-        >
-          {children}
-        </main>
-        <Footer />
+        <Providers>
+          <Header />
+          <main
+            className={cx(container(), css({ minHeight: 'calc(100vh - (72px *2))' }))}
+          >
+            {children}
+          </main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   )

@@ -2,6 +2,10 @@
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import Typography from '@/components/ui/Typography'
+import useAppDispatch from '@/hooks/useAppDispatch'
+import useRedirectIfSession from '@/hooks/useRedirectIfSession'
+import { login } from '@/services/frontend/session'
+import { setStatus, setUser } from '@/state/sessionSlice'
 import { css } from '@styled/css'
 import { useFormik } from 'formik'
 import { type FC } from 'react'
@@ -18,14 +22,18 @@ const loginSchema = yupObject({
 })
 
 const LoginForm: FC = () => {
+  const dispatch = useAppDispatch()
+  useRedirectIfSession('/')
   const formik = useFormik<LoginData>({
     initialValues: {
       email: '',
       password: ''
     },
     validationSchema: loginSchema,
-    onSubmit: (values) => {
-      console.log(values)
+    onSubmit: async (values) => {
+      const user = await login(values.email, values.password)
+      dispatch(setUser(user))
+      dispatch(setStatus('succeeded'))
     }
   })
   return (

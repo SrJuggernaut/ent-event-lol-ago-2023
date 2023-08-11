@@ -1,5 +1,6 @@
 'use client'
 import EntGamersLogo from '@/components/assets/EntGamersLogo'
+import Avatar from '@/components/layout/Avatar'
 import Menu from '@/components/layout/Menu'
 import { css } from '@styled/css'
 import { Container } from '@styled/jsx/container'
@@ -60,7 +61,16 @@ const Header: FC = () => {
               <EntGamersLogo height={40} />
             </NextLink>
           </div>
-          <div>
+          <div
+            className={css({
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              gap: 'large'
+            })}
+          >
+            <Avatar />
             <Menu />
           </div>
         </Container>

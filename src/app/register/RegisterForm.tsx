@@ -2,9 +2,13 @@
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import Typography from '@/components/ui/Typography'
+import { register } from '@/services/frontend/session'
 import { css } from '@styled/css'
+import { AppwriteException } from 'appwrite'
 import { useFormik } from 'formik'
+import { useRouter } from 'next/navigation'
 import { type FC } from 'react'
+import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import { object as yupObject, ref as yupRef, string as yupString } from 'yup'
 
 export interface RegisterData {
@@ -20,6 +24,8 @@ const registerSchema = yupObject({
 })
 
 const RegisterForm: FC = () => {
+  const { executeRecaptcha } = useGoogleReCaptcha()
+  const router = useRouter()
   const formik = useFormik<RegisterData>({
     initialValues: {
       email: '',
@@ -27,8 +33,37 @@ const RegisterForm: FC = () => {
       confirmPassword: ''
     },
     validationSchema: registerSchema,
-    onSubmit: (values) => {
-      console.log(values)
+    onSubmit: async (values) => {
+      try {
+        if (executeRecaptcha === undefined) {
+          return
+        }
+        const token = await executeRecaptcha('register')
+        const response = await fetch('/register/recaptcha', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            token
+          })
+        })
+        console.log(await response.json())
+        await register(values.email, values.password)
+        router.push('/login')
+      } catch (error) {
+        if (error instanceof AppwriteException) {
+          if (error.code === 409) {
+            formik.setErrors({
+              email: 'Ese email no está disponible'
+            })
+          } else if (error.code === 429) {
+            formik.setErrors({
+              email: 'Demasiados intentos, por favor intenta más tarde'
+            })
+          }
+        }
+      }
     }
   })
   return (
@@ -89,6 +124,7 @@ const RegisterForm: FC = () => {
           <Typography variant='caption' color="danger" component="div" >{formik.errors.confirmPassword}</Typography>
         )}
       </div>
+
       <div
         className={css({
           display: 'flex',
@@ -108,4 +144,17 @@ const RegisterForm: FC = () => {
   )
 }
 
-export default RegisterForm
+const WrappedRegisterForm: FC = () => (
+  <GoogleReCaptchaProvider
+    reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY ?? ''}
+    scriptProps={{
+      async: true,
+      defer: true,
+      appendTo: 'head'
+    }}
+  >
+    <RegisterForm />
+  </GoogleReCaptchaProvider>
+)
+
+export default WrappedRegisterForm

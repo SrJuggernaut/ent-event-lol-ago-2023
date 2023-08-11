@@ -1,0 +1,31 @@
+name: Setup production PM2
+
+on:
+  workflow_dispatch:
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - uses: kielabokkie/ssh-key-and-known-hosts-action@v1
+        with:
+          ssh-private-key: ${{secrets.SSH_PRIVATE_KEY}}
+          ssh-host: ${{secrets.SSH_HOST}}
+      - name: Install pm2
+        run: npm install pm2 --location=global
+      - name: Setup repo on server
+        run: pm2 deploy ecosystem.config.js production setup
+        env:
+          DEPLOY_HOST: ${{secrets.SSH_HOST}}
+          DEPLOY_USER: ${{secrets.SSH_USERNAME}}
+          DEPLOY_PATH: ${{secrets.DEPLOY_PATH}}
+          NEXT_PUBLIC_APPWRITE_PROJECT_ID: ${{secrets.NEXT_PUBLIC_APPWRITE_PROJECT_ID}}
+          NEXT_PUBLIC_APPWRITE_ENDPOINT: ${{secrets.NEXT_PUBLIC_APPWRITE_ENDPOINT}}
+          APPWRITE_API_KEY: ${{secrets.APPWRITE_API_KEY}}
+          NEXT_PUBLIC_RECAPTCHA_KEY: ${{secrets.NEXT_PUBLIC_RECAPTCHA_KEY}}
+          RECAPTCHA_SECRET: ${{secrets.RECAPTCHA_SECRET}}

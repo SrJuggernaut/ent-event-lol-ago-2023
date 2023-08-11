@@ -1,9 +1,15 @@
 import Typography from '@/components/ui/Typography'
 import { css, cx } from '@styled/css'
 import { center } from '@styled/patterns'
+import { type Metadata } from 'next'
 import NextLink from 'next/link'
 import { type FC } from 'react'
 import RegisterForm from './RegisterForm'
+
+export const metadata: Metadata = {
+  title: 'Registro - League Of Rancios - EntGamers',
+  description: 'Registro para el evento League Of Rancios de League Of Legends traído a ti por EntGamers & Jim RSNG'
+}
 
 const page: FC = () => {
   return (

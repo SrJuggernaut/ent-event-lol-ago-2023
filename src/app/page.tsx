@@ -1,23 +1,34 @@
-import Button from '@/components/ui/Button'
 import IconButton from '@/components/ui/IconButton'
 import Tooltip from '@/components/ui/Tooltip'
 import Typography from '@/components/ui/Typography'
-import { faDiscord, faFacebook, faInstagram, faTwitch, faTwitter } from '@fortawesome/free-brands-svg-icons'
-import { faUsers } from '@fortawesome/free-solid-svg-icons'
+import { faDiscord, faFacebook, faInstagram, faTiktok, faTwitch, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons'
+import { faTrophy, faUsers } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { css } from '@styled/css'
+import { button } from '@styled/recipes'
+import { type Metadata } from 'next'
 import NextImage from 'next/image'
+import NextLink from 'next/link'
 import { type FC } from 'react'
+
+export const metadata: Metadata = {
+  title: 'League Of Rancios - EntGamers',
+  description: 'League Of Rancios es un evento de League Of Legends traído a ti por EntGamers & Jim RSNG'
+}
 
 const oranizadores = [
   {
-    image: '/images/JimRsNg.jpeg',
+    image: '/images/JimRsNg.png',
     nombre: 'Jim RSNG',
-    descripcion: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
+    descripcion: 'Fui jugador Profesional de Starcraft 2 durante 12 años y ahora me dedico a entretener y dar YA NO DAR Cringe con diferentes juegos y LOL :D Llevo 12 años haciendo stream desde que twitch era antes JustinTV.',
     socialNetworks: [
-      { label: 'Twitch', url: 'https://www.twitch.tv/', icon: faTwitch },
-      { label: 'Twitter', url: 'https://twitter.com/', icon: faTwitter },
-      { label: 'Instagram', url: 'https://www.instagram.com/', icon: faInstagram }
+      { label: 'Twitch', url: 'https://www.twitch.tv/jimrsng', icon: faTwitch },
+      { label: 'Youtube', url: 'https://www.youtube.com/c/JimRisingTV', icon: faYoutube },
+      { label: 'Facebook', url: 'https://www.facebook.com/JimRiSiNgSC2 ', icon: faFacebook },
+      { label: 'Twitter', url: 'https://twitter.com/JimRisingSC', icon: faTwitter },
+      { label: 'Instagram', url: 'https://instagram.com/jimrising12', icon: faInstagram },
+      { label: 'TikTok', url: 'https://www.tiktok.com/@jimrising', icon: faTiktok },
+      { label: 'Discord', url: 'https://discord.gg/jimrising', icon: faDiscord }
     ]
   },
   {
@@ -80,17 +91,29 @@ const Home: FC = () => {
           <Typography variant="h2" align="center">
             Reglas y normas
           </Typography>
-          <Button variant="solid" color="primary" size="small">
+          <NextLink
+            href="/reglamento"
+            className={button({
+              variant: 'solid',
+              color: 'primary',
+              size: 'medium'
+            })}
+          >
             Ver reglas
-          </Button>
+          </NextLink>
         </div>
         <div>
           <Typography variant="h2" align="center">
             Premios
           </Typography>
-          <Button variant="solid" color="primary" size="small">
-            Ver premios
-          </Button>
+          <ul className='fa-ul'>
+            <li><FontAwesomeIcon icon={faTrophy} listItem fixedWidth /><strong>1er Lugar:</strong> Skin de 1850 RP o 10 cofres Hextech + llaves<Typography color="info" component="span">*</Typography></li>
+            <li><FontAwesomeIcon icon={faTrophy} listItem fixedWidth /><strong>2do Lugar:</strong> Skin de 1350 RP o 7 cofres hextech + llaves<Typography color="info" component="span">*</Typography></li>
+            <li><FontAwesomeIcon icon={faTrophy} listItem fixedWidth /><strong>3er Lugar:</strong> Skin de 975 RP o 5 cofres hextech + llaves<Typography color="info" component="span">*</Typography></li>
+          </ul>
+          <Typography variant="caption" color="info" className={css({ marginTop: 'medium' })}>
+            * A elección del ganador
+          </Typography>
         </div>
       </div>
       <Typography variant="h2" align="center">

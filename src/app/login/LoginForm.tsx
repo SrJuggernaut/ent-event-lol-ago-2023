@@ -8,8 +8,14 @@ import { login } from '@/services/frontend/session'
 import { setStatus, setUser } from '@/state/sessionSlice'
 import { css } from '@styled/css'
 import { useFormik } from 'formik'
+import { type Metadata } from 'next'
 import { type FC } from 'react'
 import { object as yupObject, string as yupString } from 'yup'
+
+export const metadata: Metadata = {
+  title: 'Iniciar sesión - League Of Rancios - EntGamers',
+  description: 'Iniciar sesión para el evento League Of Rancios de League Of Legends traído a ti por EntGamers & Jim RSNG'
+}
 
 export interface LoginData {
   email: string

@@ -1,18 +1,20 @@
 'use client'
 import useAppDispatch from '@/hooks/useAppDispatch'
 import useAppSelector from '@/hooks/useAppSelector'
-import { getCurrentUser } from '@/services/frontend/session'
+import { getCurrentUser, logout } from '@/services/frontend/session'
 import { setError, setStatus, setUser } from '@/state/sessionSlice'
-import { faRightToBracket, faSpinner, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faRightFromBracket, faRightToBracket, faSpinner, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { iconButton } from '@styled/recipes'
 import { AppwriteException } from 'appwrite'
 import NextLink from 'next/link'
 import { useEffect, type FC } from 'react'
+import Tooltip from '../ui/Tooltip'
 
 const Avatar: FC = () => {
   const dispatch = useAppDispatch()
   const { user, sessionStatus } = useAppSelector(state => state.session)
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       dispatch(setStatus('loading'))
@@ -33,7 +35,6 @@ const Avatar: FC = () => {
           }
         })
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -51,6 +52,31 @@ const Avatar: FC = () => {
             : (<FontAwesomeIcon icon={faRightToBracket} size="xl" fixedWidth />)
         }
       </NextLink>
+      {sessionStatus === 'succeeded' && user !== undefined && (
+        <Tooltip content="logout">
+          <button
+            className={iconButton({
+              size: 'medium',
+              color: 'primary'
+            })}
+            onClick={() => {
+              logout()
+                .then(() => {
+                  dispatch(setStatus('succeeded'))
+                  dispatch(setUser(undefined))
+                })
+                .catch((error) => {
+                  if (error instanceof AppwriteException) {
+                    dispatch(setStatus('failed'))
+                    dispatch(setError(error.message))
+                  }
+                })
+            }}
+          >
+            <FontAwesomeIcon icon={faRightFromBracket} size="xl" fixedWidth />
+          </button>
+        </Tooltip>
+      )}
     </>
   )
 }

@@ -4,6 +4,14 @@ export const getCurrentUser = async (): Promise<User> => {
   return await account.get<UserPreferences>()
 }
 
+export const updateUserPreferences = async (data: UserPreferences): Promise<User> => {
+  return await account.updatePrefs<UserPreferences>(data)
+}
+
+export const updatePassword = async (newPassword: string, oldPassword: string): Promise<User> => {
+  return await account.updatePassword<UserPreferences>(newPassword, oldPassword)
+}
+
 export const login = async (email: string, password: string): Promise<User> => {
   await account.createEmailSession(email, password)
   return await getCurrentUser()

@@ -1,4 +1,4 @@
-import { Account, Client, type Models } from 'appwrite'
+import { Account, Client, Databases, type Models } from 'appwrite'
 export { ID } from 'appwrite'
 
 export const client = new Client()
@@ -7,9 +7,11 @@ export const client = new Client()
 
 export const account = new Account(client)
 
+export const databases = new Databases(client)
 export interface UserPreferences {
   summonerName?: string
 }
 
 export type User = Models.User<UserPreferences>
+
 export type Session = Models.Session

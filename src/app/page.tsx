@@ -1,6 +1,7 @@
 import IconButton from '@/components/ui/IconButton'
 import Tooltip from '@/components/ui/Tooltip'
 import Typography from '@/components/ui/Typography'
+import { ensureSummonerInfoCollection } from '@/services/backend/summonerInfo'
 import { faDiscord, faFacebook, faInstagram, faTiktok, faTwitch, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons'
 import { faTrophy, faUsers } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -43,7 +44,13 @@ const oranizadores = [
   }
 ]
 
-const Home: FC = () => {
+const ensureAll = async (): Promise<void> => {
+  console.log('Ensuring summoner info collection')
+  await ensureSummonerInfoCollection()
+}
+
+const Home: FC = async () => {
+  await ensureAll()
   return (
     <>
       <Typography variant="h1" align="center" >

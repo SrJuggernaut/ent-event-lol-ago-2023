@@ -14,7 +14,6 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
       method: 'POST'
     })
     const recaptchaResponse = await response.json()
-    console.log(recaptchaResponse)
     if (recaptchaResponse.success !== true) {
       throw new ValidationError('Token inválido')
     }

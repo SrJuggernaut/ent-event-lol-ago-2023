@@ -129,7 +129,6 @@ const Home: FC = async () => {
             <li><FontAwesomeIcon icon={faTrophy} fixedWidth /><strong>1er Lugar:</strong> Skin de 1850 RP o 10 cofres Hextech + llaves<Typography color="info" component="span">*</Typography></li>
             <li><FontAwesomeIcon icon={faTrophy} fixedWidth /><strong>2do Lugar:</strong> Skin de 1350 RP o 7 cofres hextech + llaves<Typography color="info" component="span">*</Typography></li>
             <li><FontAwesomeIcon icon={faTrophy} fixedWidth /><strong>3er Lugar:</strong> Skin de 975 RP o 5 cofres hextech + llaves<Typography color="info" component="span">*</Typography></li>
-            <li><FontAwesomeIcon icon={faTrophy} fixedWidth /><strong>4o Lugar:</strong> Caja de skin sorpresa</li>
             <li><FontAwesomeIcon icon={faTrophy} fixedWidth /><strong>5o Lugar:</strong> Caja de skin sorpresa</li>
           </ul>
           <Typography variant="caption" color="info" className={css({ marginTop: 'medium' })}>

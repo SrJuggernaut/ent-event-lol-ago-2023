@@ -4,7 +4,7 @@ import useAppSelector from '@/hooks/useAppSelector'
 import { updateUserPreferences } from '@/services/frontend/session'
 import { createSummonerInfo } from '@/services/frontend/summonerInfo'
 import { type SummonerData } from '@/types/summonerInfo'
-import { css } from '@styled/css'
+import { css, cx } from '@styled/css'
 import { button } from '@styled/recipes'
 import { useFormik } from 'formik'
 import { useEffect, useState, type FC } from 'react'
@@ -38,7 +38,7 @@ const SummonerNameForm: FC = () => {
   useEffect(() => {
     if (user?.prefs.summonerName !== undefined) {
       formik.setValues({
-        userId: user.$id,
+        userId: '',
         summonerName: user.prefs.summonerName,
         email: user.email
       })
@@ -91,7 +91,25 @@ const SummonerNameForm: FC = () => {
           />
         </div>
         <button
-          className={button({ variant: 'solid' })}
+          className={cx(button({ variant: 'solid' }), css({
+            '&:disabled': {
+              backgroundColor: 'gray.200',
+              color: 'gray.400',
+              cursor: 'not-allowed',
+              opacity: '1',
+              '&:hover': {
+                backgroundColor: 'gray.200',
+                color: 'gray.400',
+                cursor: 'not-allowed'
+              },
+              '&:active': {
+                backgroundColor: 'gray.200',
+                color: 'gray.400',
+                cursor: 'not-allowed',
+                boxShadow: 'none'
+              }
+            }
+          }))}
           type="submit"
           disabled={isDataOnline}
         >

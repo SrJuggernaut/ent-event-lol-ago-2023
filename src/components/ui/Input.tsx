@@ -11,7 +11,20 @@ const Input: FC<InputProps> = ({ children, className, ...rest }) => {
   const [inputRecipeArgs, allOtherInputProps] = input.splitVariantProps(rest)
   return (
     <input
-      className={cx(input(inputRecipeArgs), className, css({ marginInline: '0' }))}
+      className={cx(input(inputRecipeArgs), className, css({
+        marginInline: '0',
+        '&:disabled': {
+          backgroundColor: 'gray.200',
+          color: 'gray.400',
+          cursor: 'not-allowed',
+          opacity: '1',
+          '&:hover': {
+            backgroundColor: 'gray.200',
+            color: 'gray.400',
+            cursor: 'not-allowed'
+          }
+        }
+      }))}
       {...allOtherInputProps}
     >
       {children}

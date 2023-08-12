@@ -24,6 +24,7 @@ jobs:
       - name: Setup repo on server
         run: pm2 deploy ecosystem.config.js production
         env:
+          APP_NAME: ${{secrets.APP_NAME}}
           PORT: ${{secrets.PORT}}
           DEPLOY_HOST: ${{secrets.SSH_HOST}}
           DEPLOY_USER: ${{secrets.SSH_USERNAME}}

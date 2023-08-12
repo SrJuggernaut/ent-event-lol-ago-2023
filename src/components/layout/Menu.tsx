@@ -61,30 +61,29 @@ const Menu: FC = () => {
         className={css({
           display: 'none',
           visibility: 'hidden',
-          opacity: 0,
+          opacity: 1,
           position: 'fixed',
-          top: 0,
-          left: 0,
+          right: '0',
+          bottom: '0',
+          top: '0',
+          left: '0',
           width: '100vw',
           height: '100vh',
           backgroundColor: 'rgba(0, 0, 0, 0.3)',
-          zIndex: 150
+          zIndex: 1200
         })}
       >
         <div
           ref={menu}
           className={css({
-            position: 'absolute',
-            top: 0,
-            right: 0,
+            position: 'fixed',
+            right: '0',
+            top: '0',
             width: { base: '100%', sm: '250px' },
             height: '100vh',
             backgroundColor: 'surface',
             overflow: 'scroll',
-            _backdrop: {
-              backgroundColor: 'gray.900',
-              opacity: '75%'
-            }
+            zIndex: 1200
           })}
         >
           <div

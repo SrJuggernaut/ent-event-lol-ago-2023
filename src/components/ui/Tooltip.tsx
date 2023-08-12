@@ -11,8 +11,9 @@ const Tooltip: FC<TooltipProps> = ({ children, content, position }) => {
   return (
     <div
       className={css({
-        position: 'relative',
+        position: 'static',
         display: 'inline-block',
+        zIndex: 1,
         '&:hover': {
           '& > span.tooltip-text': {
             visibility: 'visible'

@@ -2,6 +2,7 @@
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import Typography from '@/components/ui/Typography'
+import useRedirectIfSession from '@/hooks/useRedirectIfSession'
 import { register } from '@/services/frontend/session'
 import { css } from '@styled/css'
 import { AppwriteException } from 'appwrite'
@@ -24,6 +25,7 @@ const registerSchema = yupObject({
 })
 
 const RegisterForm: FC = () => {
+  useRedirectIfSession('/')
   const { executeRecaptcha } = useGoogleReCaptcha()
   const router = useRouter()
   const formik = useFormik<RegisterData>({

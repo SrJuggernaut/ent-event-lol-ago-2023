@@ -58,7 +58,7 @@ const page: FC = () => {
         <li><strong><FontAwesomeIcon icon={faTrophy} fixedWidth />2do Lugar:</strong>&nbsp;Skin de 1350 RP o 7 cofres hextech + llaves<Typography color="info" component="span">*</Typography></li>
         <li><strong><FontAwesomeIcon icon={faTrophy} fixedWidth />3er Lugar:</strong>&nbsp;Skin de 975 RP o 5 cofres hextech + llaves<Typography color="info" component="span">*</Typography></li>
         <li><strong><FontAwesomeIcon icon={faTrophy} fixedWidth />4o Lugar:</strong>&nbsp;Caja de skin sorpresa</li>
-        <li><strong><FontAwesomeIcon icon={faTrophy} fixedWidth />4o Lugar:</strong>&nbsp;Caja de skin sorpresa</li>
+        <li><strong><FontAwesomeIcon icon={faTrophy} fixedWidth />5o Lugar:</strong>&nbsp;Caja de skin sorpresa</li>
       </ul>
       <br />
       <Typography variant="caption" color="info" className={css({ marginTop: 'medium' })}>

@@ -23,6 +23,7 @@ module.exports = {
       'pre-deploy': 'yarn install',
       'post-deploy': 'pm2 startOrRestart ecosystem.config.js',
       env: {
+        APP_NAME: process.env.APP_NAME || '',
         PORT: process.env.PORT || 3700,
         NEXT_PUBLIC_APPWRITE_PROJECT_ID: process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID,
         NEXT_PUBLIC_APPWRITE_ENDPOINT: process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT,
@@ -40,6 +41,7 @@ module.exports = {
       'pre-deploy': 'yarn install && yarn run build',
       'post-deploy': 'pm2 startOrRestart ecosystem.config.js',
       env: {
+        APP_NAME: process.env.APP_NAME || '',
         PORT: process.env.PORT || 3701,
         NEXT_PUBLIC_APPWRITE_PROJECT_ID: process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID,
         NEXT_PUBLIC_APPWRITE_ENDPOINT: process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT,

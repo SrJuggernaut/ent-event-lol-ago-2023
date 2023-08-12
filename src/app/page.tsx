@@ -1,5 +1,4 @@
 import IconButton from '@/components/ui/IconButton'
-import Tooltip from '@/components/ui/Tooltip'
 import Typography from '@/components/ui/Typography'
 import { ensureSummonerInfoCollection } from '@/services/backend/summonerInfo'
 import { faDiscord, faFacebook, faInstagram, faTiktok, faTwitch, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons'
@@ -113,10 +112,25 @@ const Home: FC = async () => {
           <Typography variant="h2" align="center">
             Premios
           </Typography>
-          <ul className='fa-ul'>
-            <li><FontAwesomeIcon icon={faTrophy} listItem fixedWidth /><strong>1er Lugar:</strong> Skin de 1850 RP o 10 cofres Hextech + llaves<Typography color="info" component="span">*</Typography></li>
-            <li><FontAwesomeIcon icon={faTrophy} listItem fixedWidth /><strong>2do Lugar:</strong> Skin de 1350 RP o 7 cofres hextech + llaves<Typography color="info" component="span">*</Typography></li>
-            <li><FontAwesomeIcon icon={faTrophy} listItem fixedWidth /><strong>3er Lugar:</strong> Skin de 975 RP o 5 cofres hextech + llaves<Typography color="info" component="span">*</Typography></li>
+          <ul
+            className={css({
+              listStyle: 'none',
+              padding: 0,
+              margin: 0,
+              '& > li': {
+                display: 'flex',
+                alignItems: 'center',
+                '& > svg': {
+                  marginRight: 'small'
+                }
+              }
+            })}
+          >
+            <li><FontAwesomeIcon icon={faTrophy} fixedWidth /><strong>1er Lugar:</strong> Skin de 1850 RP o 10 cofres Hextech + llaves<Typography color="info" component="span">*</Typography></li>
+            <li><FontAwesomeIcon icon={faTrophy} fixedWidth /><strong>2do Lugar:</strong> Skin de 1350 RP o 7 cofres hextech + llaves<Typography color="info" component="span">*</Typography></li>
+            <li><FontAwesomeIcon icon={faTrophy} fixedWidth /><strong>3er Lugar:</strong> Skin de 975 RP o 5 cofres hextech + llaves<Typography color="info" component="span">*</Typography></li>
+            <li><FontAwesomeIcon icon={faTrophy} fixedWidth /><strong>4o Lugar:</strong> Caja de skin sorpresa</li>
+            <li><FontAwesomeIcon icon={faTrophy} fixedWidth /><strong>4o Lugar:</strong> Caja de skin sorpresa</li>
           </ul>
           <Typography variant="caption" color="info" className={css({ marginTop: 'medium' })}>
             * A elección del ganador
@@ -187,19 +201,20 @@ const Home: FC = async () => {
               })}
             >
               {organizador.socialNetworks.map((socialNetwork, index) => (
-                <Tooltip key={`organizador-${orgIndex + 1}-social-network-${index + 1}`} content={socialNetwork.label} position='top' >
-                  <IconButton
-                    key={`organizador-${orgIndex + 1}-social-network-${index + 1}`}
-                    component='a'
-                    href={socialNetwork.url}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    aria-label={socialNetwork.label}
-                    color='info'
-                  >
-                    <FontAwesomeIcon icon={socialNetwork.icon} size='lg' fixedWidth />
-                  </IconButton>
-                </Tooltip>
+                <IconButton
+                  key={`organizador-${orgIndex + 1}-social-network-${index + 1}`}
+                  component='a'
+                  href={socialNetwork.url}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  aria-label={socialNetwork.label}
+                  color='info'
+                >
+                  <FontAwesomeIcon icon={socialNetwork.icon} size='lg' fixedWidth />
+                  <Typography variant='srOnly'>
+                    {socialNetwork.label}
+                  </Typography>
+                </IconButton>
               ))}
             </div>
           </div>

@@ -26,19 +26,41 @@ const Footer: FC = () => {
           <Typography variant="h3" component="div" color="primary" align="center">
             Acerca de
           </Typography>
-          <ul className="fa-ul">
-            <li><FontAwesomeIcon icon={faChevronRight} listItem /><a href="https://entgamers.pro/about">EntGamers</a></li>
-            <li><FontAwesomeIcon icon={faChevronRight} listItem /><a href="https://entgamers.pro/clanes">Clanes</a></li>
+          <ul className={css({
+            listStyle: 'none',
+            padding: 0,
+            margin: 0,
+            '& > li': {
+              display: 'flex',
+              alignItems: 'center',
+              '& > svg': {
+                marginRight: 'small'
+              }
+            }
+          })}>
+            <li><FontAwesomeIcon icon={faChevronRight} /><a href="https://entgamers.pro/about">EntGamers</a></li>
+            <li><FontAwesomeIcon icon={faChevronRight} /><a href="https://entgamers.pro/clanes">Clanes</a></li>
           </ul>
         </div>
         <div>
           <Typography variant="h3" component="div" color="primary" align="center">
             Contacto
           </Typography>
-          <ul className="fa-ul">
-            <li><FontAwesomeIcon icon={faFacebook} listItem /><a href="https://www.facebook.com/EntGamers/">Facebook</a></li>
-            <li><FontAwesomeIcon icon={faTwitter} listItem /><a href="https://twitter.com/EntGamers">Twitter</a></li>
-            <li><FontAwesomeIcon icon={faEnvelope} listItem /><a href="mailto:contacto@entgamers.pro">Email</a></li>
+          <ul className={css({
+            listStyle: 'none',
+            padding: 0,
+            margin: 0,
+            '& > li': {
+              display: 'flex',
+              alignItems: 'center',
+              '& > svg': {
+                marginRight: 'small'
+              }
+            }
+          })}>
+            <li><FontAwesomeIcon icon={faFacebook} /><a href="https://www.facebook.com/EntGamers/">Facebook</a></li>
+            <li><FontAwesomeIcon icon={faTwitter} /><a href="https://twitter.com/EntGamers">Twitter</a></li>
+            <li><FontAwesomeIcon icon={faEnvelope} /><a href="mailto:contacto@entgamers.pro">Email</a></li>
           </ul>
         </div>
         <div></div>

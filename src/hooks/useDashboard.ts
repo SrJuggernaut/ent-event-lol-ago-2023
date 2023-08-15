@@ -1,4 +1,4 @@
-import { type User } from '@/lib/appwrite'
+import { type TeamList, type User } from '@/lib/appwrite'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import useAppSelector from './useAppSelector'
@@ -6,17 +6,18 @@ import useAppSelector from './useAppSelector'
 export interface useDashboardReturn {
   isReady: boolean
   user?: User
+  teams?: TeamList
 }
 
-const useDashboard = (): useDashboardReturn => {
-  const { sessionStatus, user } = useAppSelector((state) => state.session)
+const useDashboard = (staffOnly?: boolean): useDashboardReturn => {
+  const { sessionStatus, user, teams } = useAppSelector((state) => state.session)
   const router = useRouter()
 
   useEffect(() => {
-    if (sessionStatus === 'succeeded' && user === undefined) {
+    if ((sessionStatus === 'succeeded' && user === undefined) || (staffOnly === true && teams?.total === 0)) {
       router.push('/login')
     }
-  }, [sessionStatus, user])
+  }, [sessionStatus, user, teams])
 
   if (sessionStatus === 'failed') {
     router.push('/login')
@@ -24,7 +25,8 @@ const useDashboard = (): useDashboardReturn => {
 
   return {
     isReady: sessionStatus === 'succeeded' && user !== undefined,
-    user
+    user,
+    teams
   }
 }
 

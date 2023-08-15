@@ -135,7 +135,6 @@ const RegisterForm: FC = () => {
         })}
       >
         <Button
-          component="button"
           type="submit"
           disabled={!formik.isValid || formik.isSubmitting || !formik.dirty || formik.isValidating}
         >

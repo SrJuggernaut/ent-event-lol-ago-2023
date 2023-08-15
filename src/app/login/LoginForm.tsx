@@ -5,7 +5,8 @@ import Typography from '@/components/ui/Typography'
 import useAppDispatch from '@/hooks/useAppDispatch'
 import useRedirectIfSession from '@/hooks/useRedirectIfSession'
 import { login } from '@/services/frontend/session'
-import { setStatus, setUser } from '@/state/sessionSlice'
+import { getTeams } from '@/services/frontend/userTeams'
+import { setStatus, setTeams, setUser } from '@/state/sessionSlice'
 import { css } from '@styled/css'
 import { useFormik } from 'formik'
 import { type Metadata } from 'next'
@@ -38,7 +39,9 @@ const LoginForm: FC = () => {
     validationSchema: loginSchema,
     onSubmit: async (values) => {
       const user = await login(values.email, values.password)
+      const teams = await getTeams()
       dispatch(setUser(user))
+      dispatch(setTeams(teams))
       dispatch(setStatus('succeeded'))
     }
   })
@@ -90,7 +93,6 @@ const LoginForm: FC = () => {
         })}
       >
         <Button
-          component="button"
           type="submit"
           disabled={!formik.isValid || formik.isSubmitting || !formik.dirty || formik.isValidating}
         >

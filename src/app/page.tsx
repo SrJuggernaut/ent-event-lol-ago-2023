@@ -1,11 +1,12 @@
-import IconButton from '@/components/ui/IconButton'
 import Typography from '@/components/ui/Typography'
+import { ensureStorage } from '@/services/backend/storage'
 import { ensureSummonerInfoCollection } from '@/services/backend/summonerInfo'
+import { ensureTasksCollection } from '@/services/backend/tasks'
 import { faDiscord, faFacebook, faInstagram, faTiktok, faTwitch, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons'
 import { faTrophy, faUsers } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { css } from '@styled/css'
-import { button } from '@styled/recipes'
+import { button, iconButton } from '@styled/recipes'
 import { type Metadata } from 'next'
 import NextImage from 'next/image'
 import NextLink from 'next/link'
@@ -44,8 +45,9 @@ const oranizadores = [
 ]
 
 const ensureAll = async (): Promise<void> => {
-  console.log('Ensuring summoner info collection')
   await ensureSummonerInfoCollection()
+  await ensureTasksCollection()
+  await ensureStorage()
 }
 
 const Home: FC = async () => {
@@ -97,16 +99,35 @@ const Home: FC = async () => {
           <Typography variant="h2" align="center">
             Reglas y normas
           </Typography>
-          <NextLink
-            href="/reglamento"
-            className={button({
-              variant: 'solid',
-              color: 'primary',
-              size: 'medium'
+          <div
+            className={css({
+              display: 'flex',
+              justifyContent: 'space-evenly',
+              marginTop: 'medium',
+              width: '100%'
             })}
           >
-            Ver reglas
-          </NextLink>
+            <NextLink
+              href="/reglamento"
+              className={button({
+                variant: 'solid',
+                color: 'primary',
+                size: 'medium'
+              })}
+            >
+              Ver reglas
+            </NextLink>
+            <NextLink
+              href="/tareas"
+              className={button({
+                variant: 'solid',
+                color: 'primary',
+                size: 'medium'
+              })}
+            >
+              Ver Tareas
+            </NextLink>
+          </div>
         </div>
         <div>
           <Typography variant="h2" align="center">
@@ -227,24 +248,24 @@ const Home: FC = async () => {
                 display: 'flex',
                 justifyContent: 'space-evenly',
                 alignItems: 'center',
-                marginTop: 'small'
+                marginTop: 'small',
+                flexWrap: 'wrap'
               })}
             >
               {organizador.socialNetworks.map((socialNetwork, index) => (
-                <IconButton
+                <a
                   key={`organizador-${orgIndex + 1}-social-network-${index + 1}`}
-                  component='a'
+                  className={iconButton({ color: 'info' })}
                   href={socialNetwork.url}
                   target='_blank'
                   rel='noopener noreferrer'
                   aria-label={socialNetwork.label}
-                  color='info'
                 >
                   <FontAwesomeIcon icon={socialNetwork.icon} size='lg' fixedWidth />
                   <Typography variant='srOnly'>
                     {socialNetwork.label}
                   </Typography>
-                </IconButton>
+                </a>
               ))}
             </div>
           </div>

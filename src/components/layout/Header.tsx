@@ -1,6 +1,7 @@
 'use client'
 import EntGamersLogo from '@/components/assets/EntGamersLogo'
 import Avatar from '@/components/layout/Avatar'
+import Evidence from '@/components/layout/Evidence'
 import Menu from '@/components/layout/Menu'
 import { css } from '@styled/css'
 import { Container } from '@styled/jsx/container'
@@ -39,6 +40,7 @@ const Header: FC = () => {
             transitionProperty: 'background-color',
             transitionTimingFunction: 'easeInOut',
             transitionDelay: 'fast',
+            zIndex: 1000,
             '&[data-scroll=true]': {
               backgroundColor: 'gray.800'
             }
@@ -70,6 +72,7 @@ const Header: FC = () => {
               gap: 'large'
             })}
           >
+            <Evidence />
             <Avatar />
             <Menu />
           </div>

@@ -2,7 +2,8 @@
 import useAppDispatch from '@/hooks/useAppDispatch'
 import useAppSelector from '@/hooks/useAppSelector'
 import { getCurrentUser, logout } from '@/services/frontend/session'
-import { setError, setStatus, setUser } from '@/state/sessionSlice'
+import { getTeams } from '@/services/frontend/userTeams'
+import { setError, setStatus, setTeams, setUser } from '@/state/sessionSlice'
 import { faRightFromBracket, faRightToBracket, faSpinner, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { iconButton } from '@styled/recipes'
@@ -20,6 +21,21 @@ const Avatar: FC = () => {
       dispatch(setStatus('loading'))
       getCurrentUser()
         .then((user) => {
+          getTeams()
+            .then((teams) => {
+              dispatch(setTeams(teams))
+            })
+            .catch((error) => {
+              if (error instanceof AppwriteException) {
+                if (error.code !== 401) {
+                  dispatch(setStatus('failed'))
+                  dispatch(setError(error.message))
+                  return
+                }
+                dispatch(setUser(undefined))
+                dispatch(setStatus('succeeded'))
+              }
+            })
           dispatch(setUser(user))
           dispatch(setStatus('succeeded'))
         })
@@ -62,7 +78,7 @@ const Avatar: FC = () => {
             onClick={() => {
               logout()
                 .then(() => {
-                  dispatch(setStatus('succeeded'))
+                  dispatch(setTeams(undefined))
                   dispatch(setUser(undefined))
                 })
                 .catch((error) => {

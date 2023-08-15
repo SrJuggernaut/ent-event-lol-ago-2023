@@ -1,4 +1,4 @@
-import { Client, Databases, Teams } from 'node-appwrite'
+import { Client, Databases, Storage, Teams } from 'node-appwrite'
 export { ID, Permission, Role } from 'node-appwrite'
 
 export const client = new Client()
@@ -9,3 +9,5 @@ export const client = new Client()
 export const database = new Databases(client)
 
 export const teams = new Teams(client)
+
+export const storage = new Storage(client)

@@ -55,7 +55,7 @@ const Menu: FC = () => {
         aria-label="Open menu"
         color="primary"
       >
-        <FontAwesomeIcon icon={faBars} fixedWidth size="xl" />
+        <FontAwesomeIcon icon={faBars} fixedWidth size="lg" />
       </IconButton>
       <div
         ref={backDrop}

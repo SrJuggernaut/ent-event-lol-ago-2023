@@ -40,12 +40,11 @@ const Page: FC = () => {
         })
         setTasks(newTasks)
       } else {
-        console.log(response)
+        console.error(response)
       }
     })
     getTasks()
       .then((tasks) => {
-        console.log(tasks)
         setTasks(tasks.documents)
       })
       .catch((error) => {

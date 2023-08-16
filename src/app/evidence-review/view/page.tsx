@@ -42,10 +42,8 @@ const Page: FC = () => {
       reviewerNotes: ''
     },
     onSubmit: async (values) => {
-      console.log(values)
       try {
-        const taskDocument = await updateTask(taskId, values)
-        console.log(taskDocument)
+        await updateTask(taskId, values)
         router.push('/evidence-review')
       } catch (error) {
         console.error(error)
@@ -222,10 +220,8 @@ const Page: FC = () => {
             size="medium"
             color="success"
             onClick={() => {
-              console.log('Aprobar')
               formik.setFieldValue('status', 'approved')
                 .then(() => {
-                  console.log(formik.values)
                   formik.handleSubmit()
                 })
                 .catch((error) => {

@@ -17,7 +17,7 @@ const Evidence: FC = () => {
         position="bottom"
       >
         <NextLink
-          className={iconButton()}
+          className={iconButton({ color: 'primary' })}
           href="/evidence-upload"
         >
           <FontAwesomeIcon icon={faFileArrowUp} fixedWidth size='lg'/>
@@ -31,7 +31,7 @@ const Evidence: FC = () => {
         position="bottom"
       >
         <NextLink
-          className={iconButton()}
+          className={iconButton({ color: 'primary' })}
           href="/evidence-review"
         >
           <FontAwesomeIcon icon={faFileShield} fixedWidth size='lg'/>

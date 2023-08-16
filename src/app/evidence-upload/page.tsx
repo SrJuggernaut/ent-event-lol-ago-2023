@@ -17,7 +17,6 @@ const Page: FC = () => {
     if (isReady && user !== undefined) {
       getSummonerInfo(user.$id)
         .then((summonerInfo) => {
-          console.log(summonerInfo)
           if (summonerInfo.tasks !== null) {
             const taskObj: TasksObject = {}
             tasks.forEach((task) => {

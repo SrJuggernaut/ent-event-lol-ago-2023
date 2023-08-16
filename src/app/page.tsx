@@ -1,8 +1,9 @@
+import DynamicBanner from '@/app/DynamicBanner'
 import Typography from '@/components/ui/Typography'
 import { ensureStorage } from '@/services/backend/storage'
 import { ensureSummonerInfoCollection } from '@/services/backend/summonerInfo'
 import { ensureTasksCollection } from '@/services/backend/tasks'
-import { faDiscord, faFacebook, faInstagram, faTiktok, faTwitch, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons'
+import { faDiscord, faFacebook, faInstagram, faTiktok, faTwitch, faTwitter, faYoutube, type IconDefinition } from '@fortawesome/free-brands-svg-icons'
 import { faTrophy, faUsers } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { css } from '@styled/css'
@@ -17,7 +18,14 @@ export const metadata: Metadata = {
   description: 'League Of Rancios es un evento de League Of Legends traído a ti por EntGamers & Jim RSNG'
 }
 
-const oranizadores = [
+interface organizer {
+  image: string
+  nombre: string
+  descripcion: string
+  socialNetworks: Array<{ label: string, url: string, icon: IconDefinition }>
+}
+
+const oranizadores: organizer[] = [
   {
     image: '/images/JimRsNg.png',
     nombre: 'Jim RSNG',
@@ -40,6 +48,15 @@ const oranizadores = [
       { label: 'Facebook', url: 'https://www.facebook.com/EntGamers/', icon: faFacebook },
       { label: 'Discord', url: 'http://discord.gg/SYnKcU5', icon: faDiscord },
       { label: 'Grupo Lol México', url: 'https://www.facebook.com/groups/comunidadlolmexico', icon: faUsers }
+    ]
+  },
+  {
+    image: '/images/LolMX.png',
+    nombre: 'Lol México',
+    descripcion: 'Lol México es el grupo mas grande de EntGamers en Facebook, con mas de 13,000 miembros, es el grupo de League Of Legends mas grande de México.',
+    socialNetworks: [
+      { label: 'Discord', url: 'http://discord.gg/SYnKcU5', icon: faDiscord },
+      { label: 'Facebook', url: 'https://www.facebook.com/groups/comunidadlolmexico', icon: faFacebook }
     ]
   }
 ]
@@ -158,36 +175,7 @@ const Home: FC = async () => {
           </Typography>
         </div>
       </div>
-      <div
-        className={css({
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginTop: 'medium',
-          marginBottom: 'medium',
-          minHeight: '30vh'
-        })}
-      >
-        <Typography variant="h2" align="center" component="div">
-          Inscripciones abiertas
-        </Typography>
-        <Typography variant="body1" align="center">
-          El evento se llevará a cabo del <Typography component="strong" color="info" weight="bold">16 de Agosto al 23 de Agosto</Typography>.
-        </Typography>
-        <NextLink
-          className={
-            button({
-              variant: 'solid',
-              color: 'info',
-              size: 'medium'
-            })
-          }
-          href="/register"
-        >
-          Click para registrarte
-        </NextLink>
-      </div>
+      <DynamicBanner />
       <Typography variant="h2" align="center">
         Organizadores
       </Typography>

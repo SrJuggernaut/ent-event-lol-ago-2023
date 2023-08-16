@@ -53,7 +53,7 @@ const TaskController: FC<TaskControllerProps> = ({ task, tasks, onCreated }) => 
           <a className={button({ size: 'medium' })} href={taskDocument.evidenceOpGG} target="_blank" rel="noreferrer">Op.GG</a>
           <span><strong>Status:</strong> {
             taskDocument.status === 'pending'
-              ? 'Pendiente de aprovacion'
+              ? 'Pendiente de aprobación'
               : taskDocument.status === 'reviewing'
                 ? 'En revision'
                 : taskDocument.status === 'approved'

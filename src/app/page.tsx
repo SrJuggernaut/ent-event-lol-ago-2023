@@ -2,7 +2,7 @@ import Typography from '@/components/ui/Typography'
 import { ensureStorage } from '@/services/backend/storage'
 import { ensureSummonerInfoCollection } from '@/services/backend/summonerInfo'
 import { ensureTasksCollection } from '@/services/backend/tasks'
-import { faDiscord, faFacebook, faInstagram, faTiktok, faTwitch, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons'
+import { faDiscord, faFacebook, faInstagram, faTiktok, faTwitch, faTwitter, faYoutube, type IconDefinition } from '@fortawesome/free-brands-svg-icons'
 import { faTrophy, faUsers } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { css } from '@styled/css'
@@ -17,7 +17,14 @@ export const metadata: Metadata = {
   description: 'League Of Rancios es un evento de League Of Legends traído a ti por EntGamers & Jim RSNG'
 }
 
-const oranizadores = [
+interface organizer {
+  image: string
+  nombre: string
+  descripcion: string
+  socialNetworks: Array<{ label: string, url: string, icon: IconDefinition }>
+}
+
+const oranizadores: organizer[] = [
   {
     image: '/images/JimRsNg.png',
     nombre: 'Jim RSNG',
@@ -40,6 +47,15 @@ const oranizadores = [
       { label: 'Facebook', url: 'https://www.facebook.com/EntGamers/', icon: faFacebook },
       { label: 'Discord', url: 'http://discord.gg/SYnKcU5', icon: faDiscord },
       { label: 'Grupo Lol México', url: 'https://www.facebook.com/groups/comunidadlolmexico', icon: faUsers }
+    ]
+  },
+  {
+    image: '/images/LolMX.png',
+    nombre: 'Lol México',
+    descripcion: 'Lol México es el grupo mas grande de EntGamers en Facebook, con mas de 13,000 miembros, es el grupo de League Of Legends mas grande de México.',
+    socialNetworks: [
+      { label: 'Discord', url: 'http://discord.gg/SYnKcU5', icon: faDiscord },
+      { label: 'Facebook', url: 'https://www.facebook.com/groups/comunidadlolmexico', icon: faFacebook }
     ]
   }
 ]

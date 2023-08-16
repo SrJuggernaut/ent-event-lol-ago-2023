@@ -57,15 +57,16 @@ const Avatar: FC = () => {
     <>
       <NextLink
         className={iconButton({
-          size: 'medium'
+          size: 'medium',
+          color: 'primary'
         })}
         href={sessionStatus === 'succeeded' && user !== undefined ? '/profile' : '/login'}
       >
         {sessionStatus === 'idle' || sessionStatus === 'loading'
-          ? (<FontAwesomeIcon icon={faSpinner} spin size="xl" fixedWidth />)
+          ? (<FontAwesomeIcon icon={faSpinner} spin size="lg" fixedWidth />)
           : sessionStatus === 'succeeded' && user !== undefined
-            ? (<FontAwesomeIcon icon={faUser} size="xl" fixedWidth />)
-            : (<FontAwesomeIcon icon={faRightToBracket} size="xl" fixedWidth />)
+            ? (<FontAwesomeIcon icon={faUser} size="lg" fixedWidth />)
+            : (<FontAwesomeIcon icon={faRightToBracket} size="lg" fixedWidth />)
         }
       </NextLink>
       {sessionStatus === 'succeeded' && user !== undefined && (
@@ -89,7 +90,7 @@ const Avatar: FC = () => {
                 })
             }}
           >
-            <FontAwesomeIcon icon={faRightFromBracket} size="xl" fixedWidth />
+            <FontAwesomeIcon icon={faRightFromBracket} size="lg" fixedWidth />
           </button>
         </Tooltip>
       )}

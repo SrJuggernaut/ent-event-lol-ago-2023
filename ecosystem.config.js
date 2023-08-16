@@ -19,9 +19,8 @@ module.exports = {
       host: process.env.DEPLOY_HOST || '',
       ref: 'origin/preview',
       repo: 'https://github.com/SrJuggernaut/ent-event-lol-ago-2023.git',
-      path: process.env.DEPLOY_PATH || '', 
-      'pre-deploy': 'yarn install',
-      'post-deploy': 'pm2 startOrRestart ecosystem.config.js',
+      path: process.env.DEPLOY_PATH || '',
+      'post-deploy': 'yarn install && pm2 startOrRestart ecosystem.config.js',
       env: {
         APP_NAME: process.env.APP_NAME || '',
         PORT: process.env.PORT || 3700,
@@ -38,8 +37,7 @@ module.exports = {
       ref: 'origin/production',
       repo: 'https://github.com/SrJuggernaut/ent-event-lol-ago-2023.git',
       path: process.env.DEPLOY_PATH || '',
-      'pre-deploy': 'yarn install && yarn run build',
-      'post-deploy': 'pm2 startOrRestart ecosystem.config.js',
+      'post-deploy': 'yarn install && pm2 startOrRestart ecosystem.config.js',
       env: {
         APP_NAME: process.env.APP_NAME || '',
         PORT: process.env.PORT || 3701,

@@ -1,3 +1,4 @@
+import DynamicBanner from '@/app/DynamicBanner'
 import Typography from '@/components/ui/Typography'
 import { ensureStorage } from '@/services/backend/storage'
 import { ensureSummonerInfoCollection } from '@/services/backend/summonerInfo'
@@ -174,36 +175,7 @@ const Home: FC = async () => {
           </Typography>
         </div>
       </div>
-      <div
-        className={css({
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginTop: 'medium',
-          marginBottom: 'medium',
-          minHeight: '30vh'
-        })}
-      >
-        <Typography variant="h2" align="center" component="div">
-          Inscripciones abiertas
-        </Typography>
-        <Typography variant="body1" align="center">
-          El evento se llevará a cabo del <Typography component="strong" color="info" weight="bold">16 de Agosto al 23 de Agosto</Typography>.
-        </Typography>
-        <NextLink
-          className={
-            button({
-              variant: 'solid',
-              color: 'info',
-              size: 'medium'
-            })
-          }
-          href="/register"
-        >
-          Click para registrarte
-        </NextLink>
-      </div>
+      <DynamicBanner />
       <Typography variant="h2" align="center">
         Organizadores
       </Typography>

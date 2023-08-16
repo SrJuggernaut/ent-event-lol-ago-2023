@@ -4,11 +4,12 @@ import Input from '@/components/ui/Input'
 import Typography from '@/components/ui/Typography'
 import useRedirectIfSession from '@/hooks/useRedirectIfSession'
 import { register } from '@/services/frontend/session'
+import { type Alert } from '@/types/utilities'
 import { css } from '@styled/css'
 import { AppwriteException } from 'appwrite'
 import { useFormik } from 'formik'
 import { useRouter } from 'next/navigation'
-import { type FC } from 'react'
+import { useState, type FC } from 'react'
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import { object as yupObject, ref as yupRef, string as yupString } from 'yup'
 
@@ -27,6 +28,7 @@ const registerSchema = yupObject({
 const RegisterForm: FC = () => {
   useRedirectIfSession('/')
   const { executeRecaptcha } = useGoogleReCaptcha()
+  const [alert, setAlert] = useState<Alert | undefined>()
   const router = useRouter()
   const formik = useFormik<RegisterData>({
     initialValues: {
@@ -41,7 +43,7 @@ const RegisterForm: FC = () => {
           return
         }
         const token = await executeRecaptcha('register')
-        const response = await fetch('/register/recaptcha', {
+        const response = await (await fetch('/register/recaptcha', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -49,8 +51,14 @@ const RegisterForm: FC = () => {
           body: JSON.stringify({
             token
           })
-        })
-        console.log(await response.json())
+        })).json() as { success?: boolean }
+        if (response.success !== true) {
+          setAlert({
+            type: 'danger',
+            message: 'ReCaptcha inválido'
+          })
+          return
+        }
         await register(values.email, values.password)
         router.push('/login')
       } catch (error) {
@@ -72,6 +80,16 @@ const RegisterForm: FC = () => {
     <form
       onSubmit={formik.handleSubmit}
     >
+      {alert !== undefined && (
+        <Typography
+          variant='caption'
+          color={alert.type === 'danger' ? 'danger' : 'success'}
+          component="div"
+          className={css({ marginBottom: 'small' })}
+        >
+          {alert.message}
+        </Typography>
+      )}
       <div
         className={css({ marginBottom: 'small' })}
       >
@@ -135,7 +153,6 @@ const RegisterForm: FC = () => {
         })}
       >
         <Button
-          component="button"
           type="submit"
           disabled={!formik.isValid || formik.isSubmitting || !formik.dirty || formik.isValidating}
         >

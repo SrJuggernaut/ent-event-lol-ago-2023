@@ -1,19 +1,19 @@
 import { type MergeOmitting } from '@/types/utilities'
 import { cx } from '@styled/css'
 import { button, type ButtonVariantProps } from '@styled/recipes/button'
-import { type ReactNode } from 'react'
+import { type FC } from 'react'
 
-function Button<T extends keyof JSX.IntrinsicElements> (pros: MergeOmitting<JSX.IntrinsicElements[T], ButtonVariantProps> & { component?: T }): ReactNode
-function Button<T extends 'button' | 'a'> ({ children, className, component, ...rest }: MergeOmitting<JSX.IntrinsicElements[T], ButtonVariantProps> & { component?: T }): ReactNode {
+export type ButtonProps = MergeOmitting<React.ButtonHTMLAttributes<HTMLButtonElement>, ButtonVariantProps>
+
+const Button: FC<ButtonProps> = ({ children, className, ...rest }) => {
   const [iconButtonRecipeArgs, allOtherIconButtonProps] = button.splitVariantProps(rest)
-  const Component = component ?? 'button'
   return (
-    <Component
+    <button
       className={cx(button(iconButtonRecipeArgs), className)}
-      {...allOtherIconButtonProps as any}
+      {...allOtherIconButtonProps}
     >
       {children}
-    </Component>
+    </button>
   )
 }
 

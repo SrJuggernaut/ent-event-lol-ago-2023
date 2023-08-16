@@ -2,6 +2,8 @@
 import Button from '@/components/ui/Button'
 import Typography from '@/components/ui/Typography'
 import { css } from '@styled/css'
+import { button } from '@styled/recipes'
+import NextLink from 'next/link'
 import { type FC } from 'react'
 
 export interface ErrorProps {
@@ -27,13 +29,12 @@ const error: FC<ErrorProps> = ({ error, reset }) => {
           marginTop: '24px'
         })}
       >
-        <Button
-          component="a"
+        <NextLink
+          className={button({ variant: 'solid' })}
           href="/"
-          variant='solid'
         >
           Volver al inicio
-        </Button>
+        </NextLink>
         <Button
           variant='solid'
           onClick={() => { reset() }}

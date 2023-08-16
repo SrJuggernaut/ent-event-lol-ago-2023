@@ -1,9 +1,10 @@
-import { type User } from '@/lib/appwrite'
+import { type TeamList, type User } from '@/lib/appwrite'
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 export interface SessionState {
   sessionStatus: 'idle' | 'loading' | 'succeeded' | 'failed'
   user?: User
+  teams?: TeamList
   error?: string
 }
 
@@ -27,6 +28,12 @@ export const sessionSlice = createSlice({
         user: action.payload
       }
     },
+    setTeams: (state, action: PayloadAction<SessionState['teams']>) => {
+      return {
+        ...state,
+        teams: action.payload
+      }
+    },
     setError: (state, action: PayloadAction<SessionState['error']>) => {
       return {
         ...state,
@@ -38,4 +45,4 @@ export const sessionSlice = createSlice({
 
 export default sessionSlice
 
-export const { setStatus, setUser, setError } = sessionSlice.actions
+export const { setStatus, setUser, setTeams, setError } = sessionSlice.actions

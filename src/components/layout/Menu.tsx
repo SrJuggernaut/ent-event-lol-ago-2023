@@ -1,5 +1,5 @@
 import IconButton from '@/components/ui/IconButton'
-import { faBars, faBook, faHome, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faBook, faHome, faListCheck, faRankingStar, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { css } from '@styled/css'
 import gsap from 'gsap'
@@ -9,7 +9,9 @@ import { useCallback, useEffect, useRef, useState, type FC } from 'react'
 
 const menuItems = [
   { label: 'Inicio', href: '/', icon: faHome },
-  { label: 'Reglamento', href: '/reglamento', icon: faBook }
+  { label: 'Reglamento', href: '/reglamento', icon: faBook },
+  { label: 'Tareas', href: '/tareas', icon: faListCheck },
+  { label: 'Puntuaciones', href: '/puntuacion', icon: faRankingStar }
 ]
 
 const Menu: FC = () => {
@@ -54,7 +56,7 @@ const Menu: FC = () => {
         aria-label="Open menu"
         color="primary"
       >
-        <FontAwesomeIcon icon={faBars} fixedWidth size="xl" />
+        <FontAwesomeIcon icon={faBars} fixedWidth size="lg" />
       </IconButton>
       <div
         ref={backDrop}

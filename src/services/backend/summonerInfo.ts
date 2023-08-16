@@ -1,9 +1,10 @@
 import { Permission, Role, database } from '@/lib/node_appwrite'
 import { DATABASE_ID, ensureDatabase } from '@/services/backend/database'
 import { ADMIN_TEAM_ID, ensureAdminTeam } from '@/services/backend/userTeams'
+import { type SummonerDataDocument, type SummonerDataDocumentList } from '@/types/summonerInfo'
 
 export const SUMMONER_INFO_COLLECTION_NAME = 'summoner_info'
-const SUMMONER_INFO_COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_SUMMONER_INFO_COLLECTION_ID ?? SUMMONER_INFO_COLLECTION_NAME
+export const SUMMONER_INFO_COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_SUMMONER_INFO_COLLECTION_ID ?? SUMMONER_INFO_COLLECTION_NAME
 
 export const ensureSummonerInfoCollection = (() => {
   let collectionEnsured = false
@@ -24,7 +25,7 @@ export const ensureSummonerInfoCollection = (() => {
         Permission.update(Role.team(ADMIN_TEAM_ID)),
         Permission.delete(Role.team(ADMIN_TEAM_ID))
       ]
-      await database.createCollection(DATABASE_ID, SUMMONER_INFO_COLLECTION_ID, SUMMONER_INFO_COLLECTION_NAME, summonerInfoPermissions)
+      await database.createCollection(DATABASE_ID, SUMMONER_INFO_COLLECTION_ID, SUMMONER_INFO_COLLECTION_NAME, summonerInfoPermissions, true)
       if (process.env.NODE_ENV === 'development') console.log('Summoner info collection created, adding attributes...')
       await database.createStringAttribute(DATABASE_ID, SUMMONER_INFO_COLLECTION_ID, 'summonerName', 32, true)
       await database.createEmailAttribute(DATABASE_ID, SUMMONER_INFO_COLLECTION_ID, 'email', true)
@@ -34,3 +35,7 @@ export const ensureSummonerInfoCollection = (() => {
     }
   }
 })()
+
+export const getSummoners = async (): Promise<SummonerDataDocumentList> => {
+  return await database.listDocuments<SummonerDataDocument>(DATABASE_ID, SUMMONER_INFO_COLLECTION_ID)
+}

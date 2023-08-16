@@ -11,7 +11,8 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
     const body = await request.json()
     const { token } = await schema.validate(body)
     const response = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${RECAPTCHA_SECRET}&response=${token}`, {
-      method: 'POST'
+      method: 'POST',
+      cache: 'no-cache'
     })
     const recaptchaResponse = await response.json()
     if (recaptchaResponse.success !== true) {

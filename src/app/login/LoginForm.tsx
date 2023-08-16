@@ -5,11 +5,14 @@ import Typography from '@/components/ui/Typography'
 import useAppDispatch from '@/hooks/useAppDispatch'
 import useRedirectIfSession from '@/hooks/useRedirectIfSession'
 import { login } from '@/services/frontend/session'
-import { setStatus, setUser } from '@/state/sessionSlice'
+import { getTeams } from '@/services/frontend/userTeams'
+import { setStatus, setTeams, setUser } from '@/state/sessionSlice'
+import { type Alert } from '@/types/utilities'
 import { css } from '@styled/css'
+import { AppwriteException } from 'appwrite'
 import { useFormik } from 'formik'
 import { type Metadata } from 'next'
-import { type FC } from 'react'
+import { useState, type FC } from 'react'
 import { object as yupObject, string as yupString } from 'yup'
 
 export const metadata: Metadata = {
@@ -28,6 +31,7 @@ const loginSchema = yupObject({
 })
 
 const LoginForm: FC = () => {
+  const [alert, setAlert] = useState<Alert | undefined>(undefined)
   const dispatch = useAppDispatch()
   useRedirectIfSession('/')
   const formik = useFormik<LoginData>({
@@ -37,15 +41,36 @@ const LoginForm: FC = () => {
     },
     validationSchema: loginSchema,
     onSubmit: async (values) => {
-      const user = await login(values.email, values.password)
-      dispatch(setUser(user))
-      dispatch(setStatus('succeeded'))
+      try {
+        const user = await login(values.email, values.password)
+        const teams = await getTeams()
+        dispatch(setUser(user))
+        dispatch(setTeams(teams))
+        dispatch(setStatus('succeeded'))
+      } catch (error) {
+        if (error instanceof AppwriteException) {
+          setAlert({
+            type: 'danger',
+            message: error.message
+          })
+        }
+      }
     }
   })
   return (
     <form
       onSubmit={formik.handleSubmit}
     >
+      {alert !== undefined && (
+        <Typography
+          variant='caption'
+          color={alert.type === 'danger' ? 'danger' : 'success'}
+          component="div"
+          className={css({ marginBottom: 'small' })}
+        >
+          {alert.message}
+        </Typography>
+      )}
       <div
         className={css({ marginBottom: 'small' })}
       >
@@ -90,7 +115,6 @@ const LoginForm: FC = () => {
         })}
       >
         <Button
-          component="button"
           type="submit"
           disabled={!formik.isValid || formik.isSubmitting || !formik.dirty || formik.isValidating}
         >

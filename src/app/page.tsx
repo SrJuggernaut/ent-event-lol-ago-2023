@@ -1,11 +1,13 @@
-import IconButton from '@/components/ui/IconButton'
+import DynamicBanner from '@/app/DynamicBanner'
 import Typography from '@/components/ui/Typography'
+import { ensureStorage } from '@/services/backend/storage'
 import { ensureSummonerInfoCollection } from '@/services/backend/summonerInfo'
-import { faDiscord, faFacebook, faInstagram, faTiktok, faTwitch, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons'
+import { ensureTasksCollection } from '@/services/backend/tasks'
+import { faDiscord, faFacebook, faInstagram, faTiktok, faTwitch, faTwitter, faYoutube, type IconDefinition } from '@fortawesome/free-brands-svg-icons'
 import { faTrophy, faUsers } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { css } from '@styled/css'
-import { button } from '@styled/recipes'
+import { button, iconButton } from '@styled/recipes'
 import { type Metadata } from 'next'
 import NextImage from 'next/image'
 import NextLink from 'next/link'
@@ -16,7 +18,14 @@ export const metadata: Metadata = {
   description: 'League Of Rancios es un evento de League Of Legends traído a ti por EntGamers & Jim RSNG'
 }
 
-const oranizadores = [
+interface organizer {
+  image: string
+  nombre: string
+  descripcion: string
+  socialNetworks: Array<{ label: string, url: string, icon: IconDefinition }>
+}
+
+const oranizadores: organizer[] = [
   {
     image: '/images/JimRsNg.png',
     nombre: 'Jim RSNG',
@@ -40,12 +49,22 @@ const oranizadores = [
       { label: 'Discord', url: 'http://discord.gg/SYnKcU5', icon: faDiscord },
       { label: 'Grupo Lol México', url: 'https://www.facebook.com/groups/comunidadlolmexico', icon: faUsers }
     ]
+  },
+  {
+    image: '/images/LolMX.png',
+    nombre: 'Lol México',
+    descripcion: 'Lol México es el grupo mas grande de EntGamers en Facebook, con mas de 13,000 miembros, es el grupo de League Of Legends mas grande de México.',
+    socialNetworks: [
+      { label: 'Discord', url: 'http://discord.gg/SYnKcU5', icon: faDiscord },
+      { label: 'Facebook', url: 'https://www.facebook.com/groups/comunidadlolmexico', icon: faFacebook }
+    ]
   }
 ]
 
 const ensureAll = async (): Promise<void> => {
-  console.log('Ensuring summoner info collection')
   await ensureSummonerInfoCollection()
+  await ensureTasksCollection()
+  await ensureStorage()
 }
 
 const Home: FC = async () => {
@@ -97,16 +116,35 @@ const Home: FC = async () => {
           <Typography variant="h2" align="center">
             Reglas y normas
           </Typography>
-          <NextLink
-            href="/reglamento"
-            className={button({
-              variant: 'solid',
-              color: 'primary',
-              size: 'medium'
+          <div
+            className={css({
+              display: 'flex',
+              justifyContent: 'space-evenly',
+              marginTop: 'medium',
+              width: '100%'
             })}
           >
-            Ver reglas
-          </NextLink>
+            <NextLink
+              href="/reglamento"
+              className={button({
+                variant: 'solid',
+                color: 'primary',
+                size: 'medium'
+              })}
+            >
+              Ver reglas
+            </NextLink>
+            <NextLink
+              href="/tareas"
+              className={button({
+                variant: 'solid',
+                color: 'primary',
+                size: 'medium'
+              })}
+            >
+              Ver Tareas
+            </NextLink>
+          </div>
         </div>
         <div>
           <Typography variant="h2" align="center">
@@ -126,47 +164,18 @@ const Home: FC = async () => {
               }
             })}
           >
-            <li><FontAwesomeIcon icon={faTrophy} fixedWidth /><strong>1er Lugar:</strong> Skin de 1850 RP o 10 cofres Hextech + llaves<Typography color="info" component="span">*</Typography></li>
-            <li><FontAwesomeIcon icon={faTrophy} fixedWidth /><strong>2do Lugar:</strong> Skin de 1350 RP o 7 cofres hextech + llaves<Typography color="info" component="span">*</Typography></li>
-            <li><FontAwesomeIcon icon={faTrophy} fixedWidth /><strong>3er Lugar:</strong> Skin de 975 RP o 5 cofres hextech + llaves<Typography color="info" component="span">*</Typography></li>
-            <li><FontAwesomeIcon icon={faTrophy} fixedWidth /><strong>4o Lugar:</strong> Caja de skin sorpresa</li>
-            <li><FontAwesomeIcon icon={faTrophy} fixedWidth /><strong>5o Lugar:</strong> Caja de skin sorpresa</li>
+            <li><FontAwesomeIcon icon={faTrophy} fixedWidth /><strong>1er Lugar:</strong>&nbsp;Skin de 1850 RP o 10 cofres Hextech + llaves<Typography color="info" component="span">*</Typography></li>
+            <li><FontAwesomeIcon icon={faTrophy} fixedWidth /><strong>2do Lugar:</strong>&nbsp;Skin de 1350 RP o 7 cofres hextech + llaves<Typography color="info" component="span">*</Typography></li>
+            <li><FontAwesomeIcon icon={faTrophy} fixedWidth /><strong>3er Lugar:</strong>&nbsp;Skin de 975 RP o 5 cofres hextech + llaves<Typography color="info" component="span">*</Typography></li>
+            <li><FontAwesomeIcon icon={faTrophy} fixedWidth /><strong>4o Lugar:</strong>&nbsp;Caja de skin sorpresa</li>
+            <li><FontAwesomeIcon icon={faTrophy} fixedWidth /><strong>5o Lugar:</strong>&nbsp;Caja de skin sorpresa</li>
           </ul>
           <Typography variant="caption" color="info" className={css({ marginTop: 'medium' })}>
             * A elección del ganador
           </Typography>
         </div>
       </div>
-      <div
-        className={css({
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginTop: 'medium',
-          marginBottom: 'medium',
-          minHeight: '30vh'
-        })}
-      >
-        <Typography variant="h2" align="center" component="div">
-          Inscripciones abiertas
-        </Typography>
-        <Typography variant="body1" align="center">
-          El evento se llevará a cabo del <Typography component="strong" color="info" weight="bold">16 de Agosto al 23 de Agosto</Typography>.
-        </Typography>
-        <NextLink
-          className={
-            button({
-              variant: 'solid',
-              color: 'info',
-              size: 'medium'
-            })
-          }
-          href="/register"
-        >
-          Click para registrarte
-        </NextLink>
-      </div>
+      <DynamicBanner />
       <Typography variant="h2" align="center">
         Organizadores
       </Typography>
@@ -227,24 +236,24 @@ const Home: FC = async () => {
                 display: 'flex',
                 justifyContent: 'space-evenly',
                 alignItems: 'center',
-                marginTop: 'small'
+                marginTop: 'small',
+                flexWrap: 'wrap'
               })}
             >
               {organizador.socialNetworks.map((socialNetwork, index) => (
-                <IconButton
+                <a
                   key={`organizador-${orgIndex + 1}-social-network-${index + 1}`}
-                  component='a'
+                  className={iconButton({ color: 'info' })}
                   href={socialNetwork.url}
                   target='_blank'
                   rel='noopener noreferrer'
                   aria-label={socialNetwork.label}
-                  color='info'
                 >
                   <FontAwesomeIcon icon={socialNetwork.icon} size='lg' fixedWidth />
                   <Typography variant='srOnly'>
                     {socialNetwork.label}
                   </Typography>
-                </IconButton>
+                </a>
               ))}
             </div>
           </div>

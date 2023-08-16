@@ -1,3 +1,4 @@
+import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import Typography from '@/components/ui/Typography'
 import { updatePassword } from '@/services/frontend/session'
@@ -123,13 +124,13 @@ const UpdatePasswordForm: FC = () => {
             marginBottom: 'medium'
           })}
         >
-          <button
+          <Button
             className={button({ variant: 'solid' })}
             type="submit"
-            disabled={formik.isSubmitting}
+            disabled={!formik.isValid}
           >
             Guardar
-          </button>
+          </Button>
         </div>
       </form>
     </>

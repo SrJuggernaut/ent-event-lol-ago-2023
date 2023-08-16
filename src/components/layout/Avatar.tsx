@@ -2,7 +2,8 @@
 import useAppDispatch from '@/hooks/useAppDispatch'
 import useAppSelector from '@/hooks/useAppSelector'
 import { getCurrentUser, logout } from '@/services/frontend/session'
-import { setError, setStatus, setUser } from '@/state/sessionSlice'
+import { getTeams } from '@/services/frontend/userTeams'
+import { setError, setStatus, setTeams, setUser } from '@/state/sessionSlice'
 import { faRightFromBracket, faRightToBracket, faSpinner, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { iconButton } from '@styled/recipes'
@@ -20,6 +21,21 @@ const Avatar: FC = () => {
       dispatch(setStatus('loading'))
       getCurrentUser()
         .then((user) => {
+          getTeams()
+            .then((teams) => {
+              dispatch(setTeams(teams))
+            })
+            .catch((error) => {
+              if (error instanceof AppwriteException) {
+                if (error.code !== 401) {
+                  dispatch(setStatus('failed'))
+                  dispatch(setError(error.message))
+                  return
+                }
+                dispatch(setUser(undefined))
+                dispatch(setStatus('succeeded'))
+              }
+            })
           dispatch(setUser(user))
           dispatch(setStatus('succeeded'))
         })
@@ -41,15 +57,16 @@ const Avatar: FC = () => {
     <>
       <NextLink
         className={iconButton({
-          size: 'medium'
+          size: 'medium',
+          color: 'primary'
         })}
         href={sessionStatus === 'succeeded' && user !== undefined ? '/profile' : '/login'}
       >
         {sessionStatus === 'idle' || sessionStatus === 'loading'
-          ? (<FontAwesomeIcon icon={faSpinner} spin size="xl" fixedWidth />)
+          ? (<FontAwesomeIcon icon={faSpinner} spin size="lg" fixedWidth />)
           : sessionStatus === 'succeeded' && user !== undefined
-            ? (<FontAwesomeIcon icon={faUser} size="xl" fixedWidth />)
-            : (<FontAwesomeIcon icon={faRightToBracket} size="xl" fixedWidth />)
+            ? (<FontAwesomeIcon icon={faUser} size="lg" fixedWidth />)
+            : (<FontAwesomeIcon icon={faRightToBracket} size="lg" fixedWidth />)
         }
       </NextLink>
       {sessionStatus === 'succeeded' && user !== undefined && (
@@ -62,7 +79,7 @@ const Avatar: FC = () => {
             onClick={() => {
               logout()
                 .then(() => {
-                  dispatch(setStatus('succeeded'))
+                  dispatch(setTeams(undefined))
                   dispatch(setUser(undefined))
                 })
                 .catch((error) => {
@@ -73,7 +90,7 @@ const Avatar: FC = () => {
                 })
             }}
           >
-            <FontAwesomeIcon icon={faRightFromBracket} size="xl" fixedWidth />
+            <FontAwesomeIcon icon={faRightFromBracket} size="lg" fixedWidth />
           </button>
         </Tooltip>
       )}

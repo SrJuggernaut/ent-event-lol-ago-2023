@@ -1,6 +1,8 @@
 import { Permission, Role, database } from '@/lib/node_appwrite'
 import { DATABASE_ID, ensureDatabase } from '@/services/backend/database'
 import { ADMIN_TEAM_ID, ensureAdminTeam } from '@/services/backend/userTeams'
+import { type SummonerDataDocument, type SummonerDataDocumentList } from '@/types/summonerInfo'
+import { Query } from 'appwrite'
 
 export const SUMMONER_INFO_COLLECTION_NAME = 'summoner_info'
 const SUMMONER_INFO_COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_SUMMONER_INFO_COLLECTION_ID ?? SUMMONER_INFO_COLLECTION_NAME
@@ -34,3 +36,7 @@ export const ensureSummonerInfoCollection = (() => {
     }
   }
 })()
+
+export const getSummoners = async (): Promise<SummonerDataDocumentList> => {
+  return await database.listDocuments<SummonerDataDocument>(DATABASE_ID, SUMMONER_INFO_COLLECTION_ID, [Query.limit(100000)])
+}

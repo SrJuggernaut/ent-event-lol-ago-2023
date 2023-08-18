@@ -18,6 +18,7 @@ const PAGE_SIZE = 15
 const Page: FC = () => {
   const { isReady } = useDashboard(true)
   const [tasks, setTasks] = useState<TaskDocument[]>([])
+  const [totalTasks, setTotalTasks] = useState(0)
   const [tasksToShow, setTasksToShow] = useState<TaskDocument[]>([])
   const [page, setPage] = useState(1)
   useEffect(() => {
@@ -25,10 +26,12 @@ const Page: FC = () => {
     const unsubscribe = client.subscribe(`databases.${DATABASE_ID}.collections.${TASKS_COLLECTION_ID}.documents`, (response) => {
       if (response.events.some((event) => event.endsWith('create'))) {
         const newTasks = [...tasks, response.payload as TaskDocument]
+        setTotalTasks(newTasks.length)
         setTasks(newTasks)
       } else if (response.events.some((event) => event.endsWith('delete'))) {
         const taskToDelete = response.payload as TaskDocument
         const newTasks = tasks.filter((task) => task.$id !== taskToDelete.$id)
+        setTotalTasks(newTasks.length)
         setTasks(newTasks)
       } else if (response.events.some((event) => event.endsWith('update'))) {
         const updatedTask = response.payload as TaskDocument
@@ -38,6 +41,7 @@ const Page: FC = () => {
           }
           return task
         })
+        setTotalTasks(newTasks.length)
         setTasks(newTasks)
       } else {
         console.error(response)
@@ -45,6 +49,7 @@ const Page: FC = () => {
     })
     getTasks()
       .then((tasks) => {
+        setTotalTasks(tasks.total)
         setTasks(tasks.documents)
       })
       .catch((error) => {
@@ -155,6 +160,9 @@ const Page: FC = () => {
         >
           Anterior
         </Button>
+        <div>
+          <Typography variant="body1">Página {page} de {Math.ceil(totalTasks / PAGE_SIZE)}</Typography>
+        </div>
         <Button
           disabled={tasksToShow.length < PAGE_SIZE}
           onClick={() => { setPage(page + 1) }}

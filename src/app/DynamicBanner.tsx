@@ -9,8 +9,6 @@ import { type FC } from 'react'
 
 const DynamicBanner: FC = () => {
   const { user, teams } = useAppSelector(state => state.session)
-  console.log('User: ', user)
-  console.log('Teams: ', teams)
   if (user === undefined) {
     return (
       <div

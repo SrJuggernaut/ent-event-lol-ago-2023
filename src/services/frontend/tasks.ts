@@ -1,4 +1,4 @@
-import { ID, databases } from '@/lib/appwrite'
+import { ID, Query, databases } from '@/lib/appwrite'
 import { DATABASE_ID } from '@/services/frontend/database'
 import { type Task, type TaskData, type TaskDocument, type TaskDocumentList } from '@/types/tasks'
 
@@ -16,7 +16,7 @@ export const getTask = async (taskId: string): Promise<TaskDocument> => {
 }
 
 export const getTasks = async (): Promise<TaskDocumentList> => {
-  const taskDocuments = await databases.listDocuments<TaskDocument>(DATABASE_ID, TASKS_COLLECTION_ID)
+  const taskDocuments = await databases.listDocuments<TaskDocument>(DATABASE_ID, TASKS_COLLECTION_ID, [Query.limit(100000)])
   return taskDocuments
 }
 

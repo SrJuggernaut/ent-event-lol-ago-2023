@@ -27,6 +27,7 @@ const Page: FC = () => {
   const { isReady, user } = useDashboard(true)
   const searchParams = useSearchParams()
   const [finishedInitialLoad, setFinishedInitialLoad] = useState(false)
+  const [initialStatus, setInitialStatus] = useState<TaskData['status']>()
   const [taskId, setTaskId] = useState('')
 
   const router = useRouter()
@@ -63,6 +64,7 @@ const Page: FC = () => {
       .then(() => {
         getTask(taskId)
           .then((task) => {
+            setInitialStatus(task.status)
             formik.setValues({
               task: task.task,
               evidenceImage: task.evidenceImage,
@@ -186,7 +188,7 @@ const Page: FC = () => {
             size="medium"
             color="warning"
             onClick={() => {
-              formik.setFieldValue('status', 'pending')
+              formik.setFieldValue('status', initialStatus)
                 .then(() => {
                   formik.handleSubmit()
                 })

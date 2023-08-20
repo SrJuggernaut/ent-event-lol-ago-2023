@@ -1,4 +1,3 @@
-import DynamicBanner from '@/app/DynamicBanner'
 import Typography from '@/components/ui/Typography'
 import { ensureStorage } from '@/services/backend/storage'
 import { ensureSummonerInfoCollection } from '@/services/backend/summonerInfo'
@@ -12,6 +11,7 @@ import { type Metadata } from 'next'
 import NextImage from 'next/image'
 import NextLink from 'next/link'
 import { type FC } from 'react'
+import CallToAction from './CallToAction'
 
 export const metadata: Metadata = {
   title: 'League Of Rancios - EntGamers',
@@ -71,27 +71,55 @@ const Home: FC = async () => {
   await ensureAll()
   return (
     <>
-      <Typography variant="h1" align="center" >
-        League Of Rancios
-      </Typography>
-      <Typography variant="body1">
-        ¡Bienvenidos al increíble Torneo LeagueOfRancios! ¡Prepárense para la emoción, la diversión y la acción dentro del juego más popular de todos!
-      </Typography>
-      <Typography variant="body1">
-        En esta alucinante competición, tendrás la oportunidad de demostrar tus habilidades y destreza en el mundo de League of Legends mientras ganas puntos en cada paso del camino. ¡Y no te preocupes! Tendremos actividades para todos los niveles de jugadores, desde las tareas más sencillas para obtener algunos puntitos, hasta los desafíos épicos y raros que te otorgarán una lluvia de puntos.
-      </Typography>
-      <Typography variant="body1">
-        ¿Eres un orgulloso guerrero con un rango clasificatorio? ¡Genial! Recibirás tus merecidos puntos por eso. ¿Buscas emociones y adrenalina? ¡Los Pentakills te esperan con una recompensa extraordinaria de puntos que te dejará boquiabierto!
-      </Typography>
-      <Typography variant="body1">
-        Pero eso no es todo, habrá misiones secretas escondidas en el campo de batalla. ¡Descubre y completa estas hazañas ocultas para obtener puntos extra y sorprende a todos tus oponentes!
-      </Typography>
-      <Typography variant="body1">
-        ¿Estás listo para desatar tus habilidades y alcanzar la cima de la tabla de posiciones? No importa si eres novato o veterano, ¡todos tienen la oportunidad de ganar! Conviértete en una leyenda, forja alianzas con tus compañeros y muestra al mundo de qué estás hecho.
-      </Typography>
-      <Typography variant="body1">
-        Así que, ¿qué esperas? Únete a la diversión, únete al torneo de puntos en League of Legends y prepárate para vivir la aventura más emocionante que este juego te  haya ofrecido jamás. ¡Que comience la batalla por la gloria y los puntos! ¡Buena suerte, invocadores!
-      </Typography>
+      <div
+        className={css({
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: 'calc(75vh - 64px)',
+          width: '100%',
+          backgroundImage: 'url(/images/MysteriousForest.jpg)',
+          backgroundSize: 'cover',
+          backgroundPositionX: 'center',
+          backgroundPositionY: 'bottom',
+          backgroundRepeat: 'no-repeat'
+
+        })}
+      >
+        <div>
+          <Typography variant="h1" align="center" >League Of Rancios</Typography>
+          <Typography variant="subtitle1" align="center" >
+            Completa misiones, haz puntos y gana premios
+          </Typography>
+          <CallToAction />
+        </div>
+      </div>
+      <div
+        className={css({
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          minHeight: '50vh',
+          gap: 'medium'
+        })}
+      >
+        <Typography variant="h2">
+          Descripción del evento
+        </Typography>
+        <Typography variant="body1">
+          En esta alucinante competición, tendrás la oportunidad de demostrar tus habilidades y destreza en el mundo de League of Legends mientras ganas puntos en cada paso del camino. ¡Y no te preocupes! Tendremos actividades para todos los niveles de jugadores, desde las tareas más sencillas para obtener algunos puntitos, hasta los desafíos épicos y raros que te otorgarán una lluvia de puntos.
+        </Typography>
+        <Typography variant="body1">
+          Tras <NextLink href="/register">Registrarte</NextLink> en el evento deberás <NextLink href="/profile">configurar tu Summoner Name</NextLink>, para que podamos verificar que eres tú quien está jugando y así poder otorgarte los puntos correspondientes. Una vez que hayas hecho esto, podrás comenzar a completar las misiones y desafíos que te proponemos y enviar las pruebas de que los has completado.
+        </Typography>
+        <Typography variant="body1">
+          Puedes ver las misiones y desafíos disponibles en la sección <NextLink href="/tareas">Tareas</NextLink> y revisar tu posición en la <NextLink href="/puntuacion">tabla de Puntuaciones</NextLink>.
+        </Typography>
+        <Typography variant="body1">
+          El evento se llevará a cabo del 16 de Agosto al 23 de Agosto del 2023, y los ganadores serán anunciados durante la semana siguiente.
+        </Typography>
+      </div>
       <div
         className={css({
           display: 'grid',
@@ -101,7 +129,7 @@ const Home: FC = async () => {
           backgroundColor: 'surface',
           borderRadius: 'small',
           marginTop: 'medium',
-          marginBottom: 'medium',
+          marginBlock: 'medium',
           '& > div': {
             display: 'flex',
             flexDirection: 'column',
@@ -175,7 +203,6 @@ const Home: FC = async () => {
           </Typography>
         </div>
       </div>
-      <DynamicBanner />
       <Typography variant="h2" align="center">
         Organizadores
       </Typography>
@@ -188,8 +215,6 @@ const Home: FC = async () => {
           flexWrap: 'wrap',
           gap: 'medium',
           padding: 'medium',
-          backgroundColor: 'surface',
-          borderRadius: 'small',
           marginTop: 'medium',
           marginBottom: 'medium',
           '& > div': {

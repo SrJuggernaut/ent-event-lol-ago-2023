@@ -3,10 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prepare": "husky install && panda codegen",
+    "postinstall": "husky install && panda codegen",
     "develop": "next dev",
     "build": "next build",
-    "prestart": "next build",
     "start": "next start",
     "lint": "next lint"
   },

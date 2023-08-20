@@ -1,8 +1,8 @@
 import Typography from '@/components/ui/Typography'
 import { getSummoners } from '@/services/backend/summonerInfo'
 import { tasks } from '@/services/frontend/tasks'
-import { css } from '@styled/css'
 import { type FC } from 'react'
+import PuntuacionTable from './PuntuacionTable'
 
 export interface SummonerData {
   id: string
@@ -42,62 +42,7 @@ const Page: FC = async () => {
   return (
     <>
       <Typography variant="h1" align="center">Tabla de puntuación</Typography>
-      <div
-        className={css({
-          minHeight: '75vh'
-        })}
-      >
-        <div
-          className={css({
-            display: 'grid',
-            gridTemplateColumns: { base: '1fr', md: '1fr 1fr', lg: '1fr 2fr' },
-            gap: 'medium',
-            padding: 'small'
-          })}
-        >
-          <Typography variant='h2' component="span" >Nombre de invocador</Typography>
-          <div
-            className={css({
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr 1fr',
-              alignItems: 'center',
-              justifyItems: 'center'
-            })}
-          >
-            <Typography className={css({ fontSize: 'h3', color: 'danger', fontFamily: 'heading', WebkitTextStrokeWidth: '1px', WebkitTextStrokeColor: 'black' })}component="span">Pendientes<a href="#pendientes">*</a></Typography>
-            <Typography className={css({ fontSize: 'h3', color: 'success', fontFamily: 'heading', WebkitTextStrokeWidth: '1px', WebkitTextStrokeColor: 'black' })}component="span">Aprobados<a href="#aprobados">*</a></Typography>
-            <Typography className={css({ fontSize: 'h3', color: 'info', fontFamily: 'heading', WebkitTextStrokeWidth: '1px', WebkitTextStrokeColor: 'black' })}component="span">Totales<a href="#totales">*</a></Typography>
-          </div>
-        </div>
-        {summonersData.map((summoner) => (
-          <div
-            className={css({
-              display: 'grid',
-              gridTemplateColumns: { base: '1fr', md: '1fr 1fr', lg: '1fr 2fr' },
-              gap: 'medium',
-              padding: 'small'
-            })}
-            key={summoner.id}
-          >
-            <div>
-              <Typography variant='h3' component="span" >{summoner.summonerName}</Typography>
-            </div>
-            <div
-              className={css({
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr 1fr',
-                gap: 'small',
-                alignItems: 'center',
-                justifyItems: 'center'
-              })}
-            >
-              <Typography className={css({ fontSize: 'h3', color: 'danger', fontFamily: 'body', fontWeight: '700' })} component="span">{summoner.pendingPoints}</Typography>
-              <Typography className={css({ fontSize: 'h3', color: 'success', fontFamily: 'body', fontWeight: '700' })} component="span">{summoner.approvedPoints}</Typography>
-              <Typography className={css({ fontSize: 'h3', color: 'info', fontFamily: 'body', fontWeight: '700' })} component="span">{summoner.pendingPoints + summoner.approvedPoints}</Typography>
-            </div>
-          </div>
-        ))}
-      </div>
+      <PuntuacionTable data={summonersData} />
       <div>
         <Typography variant="h2" component="span" >Notas</Typography>
         <Typography id="pendientes">

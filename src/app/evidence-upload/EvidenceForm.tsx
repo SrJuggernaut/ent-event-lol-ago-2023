@@ -21,7 +21,7 @@ export interface EvidenceFormProps {
 
 export const createTaskSchema = object({
   evidenceImage: string().url('Debes subir una imagen válida').required('Debes subir una imagen válida'),
-  evidenceOpGG: string().url('Debes ingresar una URL válida').required('Debes ingresar una URL válida'),
+  evidenceOpGG: string().url('Debes ingresar una URL válida').required('Debes ingresar una URL válida').matches(/^http/, 'Debes ingresar una URL válida'),
   notes: string().max(256, 'Las notas no pueden tener más de 256 caracteres')
 })
 

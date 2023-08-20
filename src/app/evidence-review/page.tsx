@@ -1,7 +1,7 @@
 'use client'
 import Button from '@/components/ui/Button'
 import Typography from '@/components/ui/Typography'
-import { formatDate } from '@/helpers/formatDate'
+import { formatDate } from '@/helpers/date'
 import useDashboard from '@/hooks/useDashboard'
 import { client } from '@/lib/appwrite'
 import { DATABASE_ID } from '@/services/frontend/database'

@@ -6,7 +6,6 @@
     "postinstall": "husky install && panda codegen",
     "develop": "next dev",
     "build": "next build",
-    "prestart": "next build",
     "start": "next start",
     "lint": "next lint"
   },

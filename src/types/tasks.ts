@@ -5,6 +5,7 @@ export interface Task {
   name: string
   description: string
   points: number
+  isExtra?: boolean
 }
 
 export interface TaskData {

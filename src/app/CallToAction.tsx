@@ -61,7 +61,17 @@ const CallToAction: FC = () => {
   }
   if (user !== undefined && teams !== undefined && teams.teams.some((team) => team.$id === REVIEWER_TEAM_ID || team.$id === ADMIN_TEAM_ID)) {
     return (
-      <>
+      <div
+        className={css({
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: 'medium',
+          marginBottom: 'medium',
+          minHeight: '30vh'
+        })}
+      >
         <Typography variant="h2" align="center" component="div">
           Bienvenido Revisor
         </Typography>
@@ -82,12 +92,22 @@ const CallToAction: FC = () => {
           Revisar evidencias
         </NextLink>
 
-      </>
+      </div>
     )
   }
   if (user !== undefined && user.prefs.summonerName === undefined) {
     return (
-      <>
+      <div
+        className={css({
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: 'medium',
+          marginBottom: 'medium',
+          minHeight: '30vh'
+        })}
+      >
         <Typography variant="h2" align="center" component="div">
           Bienvenido
         </Typography>
@@ -106,12 +126,21 @@ const CallToAction: FC = () => {
         >
           Ingresa tu nombre de invocador
         </NextLink>
-      </>
+      </div>
     )
   }
   if (user?.prefs.summonerName !== undefined) {
     return (
-      <>
+      <div
+        className={css({
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: 'medium',
+          marginBottom: 'medium',
+          minHeight: '30vh'
+        })}>
         <Typography variant="h2" align="center" component="div">
           Envía tus evidencias
         </Typography>
@@ -131,7 +160,7 @@ const CallToAction: FC = () => {
         >
           Enviar evidencias
         </NextLink>
-      </>
+      </div>
     )
   }
 }

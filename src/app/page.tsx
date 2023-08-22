@@ -14,6 +14,7 @@ import { type FC } from 'react'
 import CallToAction from './CallToAction'
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NODE_ENV === 'development' ? 'https://previewleagueofrancios.entgamers.pro' : 'https://leagueofrancios.entgamers.pro'),
   title: 'League Of Rancios - EntGamers',
   description: 'League Of Rancios es un evento de League Of Legends traído a ti por EntGamers & Jim RSNG'
 }

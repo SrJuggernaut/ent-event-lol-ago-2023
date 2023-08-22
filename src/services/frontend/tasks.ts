@@ -27,7 +27,7 @@ export const updateTask = async (taskId: string, taskData: Partial<TaskData>): P
 
 export const tasks: Task[] = [
   { id: 'alma', name: 'Dragón-slayer', description: 'Consigue el alma de dragón antes del minuto 33.', points: 50, isExtra: true },
-  { id: 'heraldos', name: 'Gerardo slaye', description: 'Consigue los dos heraldos de la grieta', points: 50, isExtra: true },
+  { id: 'heraldos', name: 'Gerardo slayer', description: 'Consigue los dos heraldos de la grieta', points: 50, isExtra: true },
   { id: 'tier2', name: 'Mi compa el Gerardo', description: 'Consigue que el heraldo destruya torre tier 2', points: 50, isExtra: true },
   { id: 'torrent', name: 'Only push', description: 'Destruye la torreta del enemigo antes del minuto 14', points: 50, isExtra: true },
   { id: 'loltop', name: 'Lol es mi única vida ', description: 'Consigue un mínimo de 500 de vida extra con el ítem Corazón de Acero.', points: 60, isExtra: true },

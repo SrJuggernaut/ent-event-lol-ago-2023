@@ -32,7 +32,7 @@ const page: FC = () => {
           El evento ha terminado, el registro está cerrado.
         </Typography>
         <Typography variant="body1" align="center">
-          Revisa los resultados en el siguiente enlace, Únete a nuestro Discord par más eventos.
+          Revisa los resultados en el siguiente enlace, Únete a nuestro Discord para más eventos.
         </Typography>
         <div
           className={css({

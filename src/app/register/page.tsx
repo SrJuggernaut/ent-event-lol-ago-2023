@@ -1,10 +1,10 @@
 import Typography from '@/components/ui/Typography'
 import { css, cx } from '@styled/css'
 import { center } from '@styled/patterns'
+import { button } from '@styled/recipes'
 import { type Metadata } from 'next'
 import NextLink from 'next/link'
 import { type FC } from 'react'
-import RegisterForm from './RegisterForm'
 
 export const metadata: Metadata = {
   title: 'Registro - League Of Rancios - EntGamers',
@@ -28,9 +28,47 @@ const page: FC = () => {
         })}
       >
         <Typography variant="h1" align="center">Registro</Typography>
-        <RegisterForm />
-        <Typography variant="body1" align="center">¿Ya tienes una cuenta? <NextLink href="/login">Inicia sesión</NextLink></Typography>
+        <Typography variant="body1" align="center">
+          El evento ha terminado, el registro está cerrado.
+        </Typography>
+        <Typography variant="body1" align="center">
+          Revisa los resultados en el siguiente enlace, Únete a nuestro Discord par más eventos.
+        </Typography>
+        <div
+          className={css({
+            display: 'flex',
+            justifyContent: 'center',
+            gap: 'medium',
+            marginTop: 'medium'
+          })}
+        >
+          <NextLink
+            className={
+              button({
+                variant: 'solid',
+                color: 'info',
+                size: 'medium'
+              })
+            }
+            href="/puntuacion"
+          >
+            Revisar resultados
+          </NextLink>
+          <a
+            className={
+              button({
+                variant: 'solid',
+                color: 'primary',
+                size: 'medium'
+              })
+            }
+            href="http://discord.gg/SYnKcU5"
+          >
+            Únete a nuestro Discord
+          </a>
+        </div>
       </div>
+
     </div>
   )
 }

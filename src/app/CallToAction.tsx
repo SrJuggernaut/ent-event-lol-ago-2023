@@ -6,59 +6,12 @@ import useAppSelector from '@/hooks/useAppSelector'
 import { ADMIN_TEAM_ID, REVIEWER_TEAM_ID } from '@/services/frontend/userTeams'
 import { css } from '@styled/css'
 import { button } from '@styled/recipes'
-import { isAfter } from 'date-fns'
 import NextLink from 'next/link'
 import { type FC } from 'react'
 
 const CallToAction: FC = () => {
   const { user, teams } = useAppSelector(state => state.session)
-  if (user === undefined) {
-    return (
-      <div
-        className={css({
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginTop: 'medium',
-          marginBottom: 'medium',
-          minHeight: '30vh'
-        })}
-      >
-        {isAfter(new Date(), endDate)
-          ? (
-            <>
-              <Typography variant="h2" align="center" component="div">
-                Inscripciones cerradas
-              </Typography>
-              <Typography variant="body1" align="center">
-                La entrega de premios se llevará a cabo la semana siguiente a la finalización del evento.
-              </Typography>
-            </>
-          )
-          : (
-            <>
-              <Typography variant="h2" align="center" component="div">
-                Inscripciones abiertas, quedan:
-              </Typography>
-              <CountDown endDate={endDate} /><NextLink
-                className={
-                  button({
-                    variant: 'solid',
-                    color: 'info',
-                    size: 'medium'
-                  })
-                }
-                href="/register"
-              >
-                Regístrate ahora
-              </NextLink>
-            </>
-          )
-        }
-      </div>
-    )
-  }
+
   if (user !== undefined && teams !== undefined && teams.teams.some((team) => team.$id === REVIEWER_TEAM_ID || team.$id === ADMIN_TEAM_ID)) {
     return (
       <div
@@ -94,8 +47,7 @@ const CallToAction: FC = () => {
 
       </div>
     )
-  }
-  if (user !== undefined && user.prefs.summonerName === undefined) {
+  } else {
     return (
       <div
         className={css({
@@ -109,57 +61,46 @@ const CallToAction: FC = () => {
         })}
       >
         <Typography variant="h2" align="center" component="div">
-          Bienvenido
+          Gracias por participar
         </Typography>
         <Typography variant="body1" align="center">
-          Por favor, ingresa tu nombre de invocador para poder participar.
-        </Typography>
-        <NextLink
-          className={
-            button({
-              variant: 'solid',
-              color: 'info',
-              size: 'medium'
-            })
-          }
-          href="/profile"
-        >
-          Ingresa tu nombre de invocador
-        </NextLink>
-      </div>
-    )
-  }
-  if (user?.prefs.summonerName !== undefined) {
-    return (
-      <div
-        className={css({
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginTop: 'medium',
-          marginBottom: 'medium',
-          minHeight: '30vh'
-        })}>
-        <Typography variant="h2" align="center" component="div">
-          Envía tus evidencias
+          El evento ha terminado. La entrega de premios se realizará durante las próximas semanas.
         </Typography>
         <Typography variant="body1" align="center">
-          Envía tus evidencias para participar en el torneo, quedan:
+          Revisa los resultados en el siguiente enlace, Únete a nuestro Discord par más eventos.
         </Typography>
-        <CountDown endDate={endDate} />
-        <NextLink
-          className={
-            button({
-              variant: 'solid',
-              color: 'info',
-              size: 'medium'
-            })
-          }
-          href="/evidence"
+        <div
+          className={css({
+            display: 'flex',
+            gap: 'medium',
+            marginTop: 'medium'
+          })}
         >
-          Enviar evidencias
-        </NextLink>
+          <NextLink
+            className={
+              button({
+                variant: 'solid',
+                color: 'info',
+                size: 'medium'
+              })
+            }
+            href="/puntuacion"
+          >
+            Revisar resultados
+          </NextLink>
+          <a
+            className={
+              button({
+                variant: 'solid',
+                color: 'primary',
+                size: 'medium'
+              })
+            }
+            href="http://discord.gg/SYnKcU5"
+          >
+            Únete a nuestro Discord
+          </a>
+        </div>
       </div>
     )
   }

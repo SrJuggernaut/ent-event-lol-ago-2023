@@ -25,7 +25,7 @@ const Page: FC = () => {
         El evento ha terminado. La entrega de premios se realizará durante las próximas semanas.
       </Typography>
       <Typography variant="body1" align="center">
-        Revisa los resultados en el siguiente enlace, Únete a nuestro Discord par más eventos.
+        Revisa los resultados en el siguiente enlace, Únete a nuestro Discord para más eventos.
       </Typography>
       <div
         className={css({
